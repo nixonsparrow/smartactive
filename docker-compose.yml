@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  web:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "python manage.py migrate &&
+                      python manage.py test &&
+                      python manage.py runserver 0.0.0.0:8000"
+    image: smartmove
+    deploy:
+      replicas: 1
+    ports:
+      - "80:8000"
+    restart: on-failure
