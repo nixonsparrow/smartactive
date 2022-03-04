@@ -5,7 +5,7 @@ from users.models import User
 
 
 class UserAdmin(BaseUserAdmin):
-    pass
+    list_display = ['id', 'username', 'first_name', 'last_name', 'email', 'trainer']
 
 
 admin.site.register(User, UserAdmin)
