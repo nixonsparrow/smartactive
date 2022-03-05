@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.shortcuts import reverse
 from users.models import User
 from users.forms import UserCreateForm, UserUpdateForm
@@ -36,12 +36,12 @@ class UserCreationTestCase(TestCase):
         self.assertFalse(User.objects.first().trainer)
 
     def test_create_view_uses_user_form(self):
-        response = self.client.get(reverse('user-create-form'))
+        response = self.client.get(reverse('users:create-form'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_form.html')
 
     def test_user_post_creates_user(self):
-        response = self.client.post(reverse('user-create-form'),
+        response = self.client.post(reverse('users:create-form'),
                                     data={**TEST_USER, **{'password1': PASSWORD, 'password2': PASSWORD}})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(User.objects.first().username, TEST_USER['username'])
@@ -49,15 +49,16 @@ class UserCreationTestCase(TestCase):
 
 class UserUpdateTestCase(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username=TEST_USER['username'], email=TEST_USER['email'])
+        self.user = User.objects.create_superuser(username=TEST_USER['username'], email=TEST_USER['email'])
+        self.client.force_login(self.user)
 
     def test_update_view_uses_user_form(self):
-        response = self.client.get(reverse('user-update-form', kwargs={'pk': self.user.id}))
+        response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_form.html')
 
     def test_user_post_updates_user(self):
-        response = self.client.post(reverse('user-update-form', kwargs={'pk': self.user.id}),
+        response = self.client.post(reverse('users:update-form', kwargs={'pk': self.user.id}),
                                     {**TEST_USER, 'username': 'Alternative'})
         self.assertEqual(response.status_code, 302)
         self.user.refresh_from_db()
