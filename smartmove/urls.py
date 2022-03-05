@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -10,6 +11,7 @@ from search import views as search_views
 
 urlpatterns = [
     path('users/', include('users.urls')),
+    path('calendar/', include('events.urls')),
 
     path('django-admin/', admin.site.urls),
 
@@ -18,6 +20,8 @@ urlpatterns = [
 
     path('search/', search_views.search, name='search'),
 
+    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('logged_out/', auth_views.LogoutView.as_view(template_name='users/logged_out.html'), name='logged_out'),
 ]
 
 
