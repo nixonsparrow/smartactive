@@ -49,8 +49,10 @@ class UserCreationTestCase(TestCase):
 
 class UserUpdateTestCase(TestCase):
     def setUp(self):
-        self.user = User.objects.create_superuser(username=TEST_USER['username'], email=TEST_USER['email'])
-        self.client.force_login(self.user)
+        self.user = User.objects.create_superuser(username=TEST_USER['username'],
+                                                  email=TEST_USER['email'],
+                                                  password=PASSWORD)
+        self.client.login(username=TEST_USER['email'], password=PASSWORD)
 
     def test_update_view_uses_user_form(self):
         response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
