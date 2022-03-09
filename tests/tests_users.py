@@ -1,15 +1,15 @@
+from time import sleep
+
 from django.contrib.staticfiles.testing import LiveServerTestCase
 from django.urls.base import reverse
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as cond
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from time import sleep
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support import expected_conditions as cond
+from selenium.webdriver.support.ui import WebDriverWait
 
 from users.models import User
-
 
 # class UserCreationTestCase(LiveServerTestCase):
 #     def setUp(self):

@@ -1,8 +1,8 @@
-from django.test import TestCase, Client
 from django.shortcuts import reverse
-from users.models import User
-from users.forms import UserCreateForm, UserUpdateForm
+from django.test import TestCase
 
+from users.forms import UserCreateForm
+from users.models import User
 
 TEST_USER = {
     'username': 'Tester',
