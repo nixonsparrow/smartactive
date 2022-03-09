@@ -11,6 +11,13 @@ TEST_USER = {
     'email': 'test@wp.pl',
 }
 
+TEST_SUPERUSER = {
+    'username': 'SuperTester',
+    'first_name': 'Super Name',
+    'last_name': 'Last Name',
+    'email': 'supertest@wp.pl',
+}
+
 PASSWORD = 'T3$tuser!@#$%^&*()'
 
 
@@ -49,19 +56,38 @@ class UserCreationTestCase(TestCase):
 
 class UserUpdateTestCase(TestCase):
     def setUp(self):
-        self.user = User.objects.create_superuser(username=TEST_USER['username'],
-                                                  email=TEST_USER['email'],
+        self.superuser = User.objects.create_superuser(username=TEST_SUPERUSER['username'],
+                                                  email=TEST_SUPERUSER['email'],
                                                   password=PASSWORD)
-        self.client.login(username=TEST_USER['email'], password=PASSWORD)
+        self.user = User.objects.create_user(username=TEST_USER['username'],
+                                             email=TEST_USER['email'],
+                                             password=PASSWORD)
 
-    def test_update_view_uses_user_form(self):
+    def test_update_view_not_logged_redirect(self):
+        response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
+        self.assertEqual(response.status_code, 302)
+
+    def test_update_view_uses_user_form_forbidden(self):
+        self.client.login(username=self.user.email, password=PASSWORD)
+        response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_user_post_updates_user_forbidden(self):
+        self.client.login(username=self.user.email, password=PASSWORD)
+        response = self.client.post(reverse('users:update-form', kwargs={'pk': self.user.id}),
+                                    {**TEST_USER, 'username': 'Alternative'})
+        self.assertEqual(response.status_code, 403)
+
+    def test_update_view_uses_user_form_admin(self):
+        self.client.login(username=self.superuser.email, password=PASSWORD)
         response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_form.html')
 
-    def test_user_post_updates_user(self):
+    def test_user_post_updates_user_admin(self):
+        self.client.login(username=self.superuser.email, password=PASSWORD)
         response = self.client.post(reverse('users:update-form', kwargs={'pk': self.user.id}),
                                     {**TEST_USER, 'username': 'Alternative'})
         self.assertEqual(response.status_code, 302)
-        self.user.refresh_from_db()
-        self.assertNotEqual(self.user.username, TEST_USER['username'])
+        self.superuser.refresh_from_db()
+        self.assertNotEqual(self.superuser.username, TEST_USER['username'])
