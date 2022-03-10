@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import django_on_heroku
 from django.utils.translation import gettext_lazy as _
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -187,8 +188,11 @@ LOGIN_REDIRECT_URL = 'events:overview'
 LOGIN_URL = 'login'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+CONN_MAX_AGE = 500
 
 try:
     from .local import *
 except ImportError:
     pass
+
+django_on_heroku.settings(locals())
