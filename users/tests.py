@@ -57,8 +57,8 @@ class UserCreationTestCase(TestCase):
 class UserUpdateTestCase(TestCase):
     def setUp(self):
         self.superuser = User.objects.create_superuser(username=TEST_SUPERUSER['username'],
-                                                  email=TEST_SUPERUSER['email'],
-                                                  password=PASSWORD)
+                                                       email=TEST_SUPERUSER['email'],
+                                                       password=PASSWORD)
         self.user = User.objects.create_user(username=TEST_USER['username'],
                                              email=TEST_USER['email'],
                                              password=PASSWORD)
@@ -91,3 +91,16 @@ class UserUpdateTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.superuser.refresh_from_db()
         self.assertNotEqual(self.superuser.username, TEST_USER['username'])
+
+
+class ProfileViewTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username=TEST_USER['username'],
+                                             email=TEST_USER['email'],
+                                             password=PASSWORD)
+
+    def test_template_used(self):
+        self.client.login(username=self.user.email, password=PASSWORD)
+        response = self.client.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/profile.html')
