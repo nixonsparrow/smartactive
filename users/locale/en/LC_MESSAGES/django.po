@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: .\users\apps.py:8
 msgid "Users"
-msgstr ""
+msgstr "Users"
 
 #: .\users\models.py:7
 msgid "trainer"
-msgstr ""
+msgstr "Trainer"
 
 #: .\users\models.py:8
 msgid "email address"
-msgstr ""
+msgstr "Email address"

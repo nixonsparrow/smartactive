@@ -4,8 +4,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
-    trainer = models.BooleanField(_('trainer'), default=False)
+    first_name = models.CharField(_("first name"), max_length=32)
+    last_name = models.CharField(_("last name"), max_length=32)
     email = models.EmailField(_("email address"), blank=True, unique=True)
 
+    trainer = models.BooleanField(_('trainer'), default=False)
+
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['first_name', 'last_name']

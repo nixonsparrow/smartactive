@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'users.apps.UsersConfig',
 
+    'crispy_forms',
     'home',
     'search',
 
@@ -124,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'pl'
 
 LANGUAGES = [
     ('pl', _('Polish')),
@@ -183,6 +184,8 @@ AUTH_USER_MODEL = 'users.User'
 
 LOGIN_REDIRECT_URL = 'events:overview'
 LOGIN_URL = 'login'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 try:
     from .local import *

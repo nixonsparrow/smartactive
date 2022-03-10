@@ -20,8 +20,8 @@ msgstr ""
 
 #: .\smartmove\settings\base.py:127
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: .\smartmove\settings\base.py:128
 msgid "Polish"
-msgstr ""
+msgstr "Polish"
