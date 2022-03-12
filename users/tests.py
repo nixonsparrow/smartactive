@@ -104,3 +104,27 @@ class ProfileViewTestCase(TestCase):
         response = self.client.get(reverse('users:profile'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/profile.html')
+
+
+class LoginTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username=TEST_USER['username'],
+                                             email=TEST_USER['email'],
+                                             password=PASSWORD)
+
+    def test_template_used(self):
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/login.html')
+
+    def test_post_data_email_as_username(self):
+        response = self.client.post(reverse('login'), data={
+            'username': TEST_USER['email'], 'password': PASSWORD
+        })
+        self.assertEqual(response.status_code, 302)
+
+    def test_post_data_username_as_username_no_login(self):
+        response = self.client.post(reverse('login'), data={
+            'username': TEST_USER['username'], 'password': PASSWORD
+        })
+        self.assertEqual(response.status_code, 200)

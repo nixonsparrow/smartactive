@@ -5,7 +5,7 @@ from django.urls.base import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 
 from events.models import Event
-from users.forms import UserCreateForm, UserUpdateForm, LoginForm
+from users.forms import LoginForm, UserCreateForm, UserUpdateForm
 from users.models import User
 
 
