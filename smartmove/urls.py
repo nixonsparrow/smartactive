@@ -7,6 +7,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+from users.views import UserLoginView
 
 urlpatterns = [
     path('users/', include('users.urls')),
@@ -19,7 +20,7 @@ urlpatterns = [
 
     path('search/', search_views.search, name='search'),
 
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('login/', UserLoginView.as_view(), name='login'),
     path('logged_out/', auth_views.LogoutView.as_view(template_name='users/logged_out.html'), name='logged_out'),
 ]
 

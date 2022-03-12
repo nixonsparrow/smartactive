@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
+from django.contrib.auth.views import LoginView
 from django.urls.base import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 
 from events.models import Event
-from users.forms import UserCreateForm, UserUpdateForm
+from users.forms import UserCreateForm, UserUpdateForm, LoginForm
 from users.models import User
 
 
@@ -28,3 +29,8 @@ class UserProfileView(LoginRequiredMixin, ListView):
     template_name = 'users/profile.html'
     queryset = Event.objects.all()
     context_object_name = 'events'
+
+
+class UserLoginView(LoginView):
+    form_class = LoginForm
+    template_name = 'users/login.html'
