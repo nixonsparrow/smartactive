@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-05 15:20+0100\n"
+"POT-Creation-Date: 2022-03-13 23:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,18 +21,24 @@ msgstr ""
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: .\users\apps.py:8
-#, fuzzy
-#| msgid "users"
 msgid "Users"
 msgstr "Użytkownicy"
 
 #: .\users\models.py:7
-msgid "trainer"
-msgstr "Trener"
+msgid "first name"
+msgstr "imię"
 
 #: .\users\models.py:8
+msgid "last name"
+msgstr "nazwisko"
+
+#: .\users\models.py:9
 msgid "email address"
-msgstr "Adres e-mail"
+msgstr "adres e-mail"
+
+#: .\users\models.py:11
+msgid "trainer"
+msgstr "trener"
 
 #~ msgid "user"
-#~ msgstr "Użytkownik"
+#~ msgstr "użytkownik"

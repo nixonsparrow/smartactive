@@ -128,3 +128,49 @@ class LoginTestCase(TestCase):
             'username': TEST_USER['username'], 'password': PASSWORD
         })
         self.assertEqual(response.status_code, 200)
+
+
+class LogoutTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username=TEST_USER['username'],
+                                             email=TEST_USER['email'],
+                                             password=PASSWORD)
+
+    def test_template_used(self):
+        self.client.login(username=self.user.email, password=PASSWORD)
+        response = self.client.get(reverse('logout'))
+        self.assertTemplateUsed(response, 'users/logged_out.html')
+
+    def test_if_user_can_logout(self):
+        response = self.client.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 302)
+
+        self.client.login(username=self.user.email, password=PASSWORD)
+        response = self.client.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 200)
+
+        self.client.get(reverse('logout'))
+        response = self.client.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 302)
+
+
+class LoggedInOrLoggedOutTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username=TEST_USER['username'],
+                                             email=TEST_USER['email'],
+                                             password=PASSWORD)
+
+    def test_not_logged_in_user_see_calendar_overview(self):
+        self.client.login(username=self.user.email, password=PASSWORD)
+        response = self.client.get(reverse('events:overview'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_logged_in_user_see_user_related_site(self):
+        self.client.login(username=self.user.email, password=PASSWORD)
+        response = self.client.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/profile.html')
+
+    def test_not_logged_in_user_doesnt_see_user_related_site(self):
+        response = self.client.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 302)

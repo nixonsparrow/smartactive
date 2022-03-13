@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls.base import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 
@@ -34,3 +34,7 @@ class UserProfileView(LoginRequiredMixin, ListView):
 class UserLoginView(LoginView):
     form_class = LoginForm
     template_name = 'users/login.html'
+
+
+class UserLogoutView(LogoutView):
+    template_name = 'users/logged_out.html'
