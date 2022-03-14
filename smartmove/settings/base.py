@@ -30,6 +30,8 @@ DEBUG = False
 # Application definition
 
 INSTALLED_APPS = [
+    'payments.apps.PaymentsConfig',
+    'manager.apps.ManagerConfig',
     'events.apps.EventsConfig',
     'users.apps.UsersConfig',
 

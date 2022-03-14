@@ -4,7 +4,6 @@ from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
-from manager.models import TimestampModel
 from users.models import User
 
 
@@ -16,7 +15,7 @@ class Type(models.Model):
     name = models.CharField(_('Name'), default='', null=False, blank=False, max_length=50)
 
 
-class EventSchema(models.Model, TimestampModel):
+class EventSchema(models.Model):
     class Meta:
         verbose_name = _('Event schema')
         verbose_name_plural = _('Events schemas')
@@ -40,7 +39,7 @@ class EventSchema(models.Model, TimestampModel):
     participants_limit = models.IntegerField(_('Limit of participants'), default=10)
 
 
-class Event(models.Model, TimestampModel):
+class Event(models.Model):
     class Meta:
         verbose_name = _('Event')
         verbose_name_plural = _('Events')
