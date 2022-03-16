@@ -1,11 +1,18 @@
-venv/
-.env
+### Django ###
 *.log
 *.pot
 *.pyc
-__pycache__/
 *.sqlit*
-media
 local.py
 .idea
+__pycache__/
+media
 staticfiles/
+
+# Environments
+local_settings.py
+venv/
+.env
+
+# Translations
+*.mo
