@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="get" action="https://sandbox.przelewy24.pl/api/v1/transaction/register">
+      <input type="hidden" name="z24_id_sprzedawcy" value="110906">
+      <input type="hidden" name="z24_crc" value="88773130af691ff6">
+      <input type="hidden" name="z24_return_url" value="https://dirtysparrows.pl">
+      <input type="hidden" name="z24_language" value="pl">
+      <table>
+        <tr>
+          <td align="right">Nazwa produktu:</td>
+          <td>
+          <input type="text" name="z24_nazwa" value="Dirty Coins">
+          </td>
+        </tr>
+        <tr>
+          <td align="right">Dodatkowy opis:</td>
+          <td>
+          <textarea name="z24_opis" style="width:250px">Dodatkowe informacje...</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">Do zapłaty:</td>
+          <td><input type="text" name="z24_kwota"></td><!--KWOTA W GROSZACH-->
+        </tr>
+      </table>
+      <input type="submit" value="zapłać z przelewy24.pl">
+    </form>
+{% endblock content %}

@@ -12,6 +12,7 @@ from users.views import UserLoginView, UserLogoutView
 urlpatterns = [
     path('users/', include('users.urls')),
     path('calendar/', include('events.urls')),
+    path('payments/', include('payments.urls')),
 
     path('django-admin/', admin.site.urls),
 

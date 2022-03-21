@@ -3,16 +3,19 @@
 *.pot
 *.pyc
 *.sqlit*
-local.py
 .idea
 __pycache__/
 media
 staticfiles/
 
 # Environments
+local.py
 local_settings.py
 venv/
 .env
 
 # Translations
 *.mo
+
+# temporary ignore
+przelewy24.py
