@@ -18,4 +18,4 @@ venv/
 *.mo
 
 # temporary ignore
-przelewy24.py
+*przelewy24*

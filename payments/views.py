@@ -1,12 +1,12 @@
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from payments.przelewy24 import przelewy
+from payments.models import Payment
 
 
 class Overview(TemplateView):
-    template_name = 'payments/payment.html'
+    template_name = 'payments/overview.html'
 
-    def post(self):
-        przelewy()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['payments'] = Payment.objects.all()
+        return context
