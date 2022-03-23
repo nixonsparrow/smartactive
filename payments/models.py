@@ -14,11 +14,12 @@ class Ticket(TimestampedModel):
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField(verbose_name=_('Active'), default=True)
 
-    event_type = models.ForeignKey(Type, default=None, on_delete=models.SET_NULL, null=True, blank=False)
+    event_type = models.ForeignKey(Type, default=None, on_delete=models.SET_NULL,
+                                   related_name='tickets', null=True, blank=False)
     usages_left = models.PositiveSmallIntegerField(verbose_name=_('Usages left'), default=1, null=False, blank=False)
 
     def __str__(self):
-        return f'{_("Ticket")} ({self.id}): {self.user}'
+        return f'{_("Ticket")} ({self.id}): {self.user if self.user else _("Incognito")}'
 
 
 class Payment(TimestampedModel):
@@ -33,4 +34,4 @@ class Payment(TimestampedModel):
     ticket = models.OneToOneField(Ticket, on_delete=models.SET_NULL, default=None, null=True, blank=True)
 
     def __str__(self):
-        return f'{_("Payment")} ({self.id}): {self.user}'
+        return f'{_("Payment")} ({self.id}): {self.user if self.user else _("Incognito")}'
