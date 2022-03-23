@@ -20,43 +20,38 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: .\smartmove\settings\base.py:160
-msgid "Polish"
-msgstr "Polski"
+#: .\payments\models.py:10
+msgid "Ticket"
+msgstr ""
 
-#: .\smartmove\settings\base.py:161
-msgid "English"
-msgstr "Angielski"
+#: .\payments\models.py:11
+msgid "Tickets"
+msgstr "Bilety"
 
-#~ msgid "created at"
-#~ msgstr "utworzono"
+#: .\payments\models.py:13
+msgid "User"
+msgstr "Użytkownik"
 
-#~ msgid "updated at"
-#~ msgstr "zmodyfikowano"
+#: .\payments\models.py:14
+msgid "Active"
+msgstr "Aktywny"
 
-#~ msgid "Ticket"
-#~ msgstr "Bilet"
+#: .\payments\models.py:16
+msgid "Usages left"
+msgstr "Pozostałe użycia"
 
-#~ msgid "Tickets"
-#~ msgstr "Bilety"
+#: .\payments\models.py:24
+msgid "Payment"
+msgstr "Płatność"
 
-#~ msgid "User"
-#~ msgstr "Użytkownik"
+#: .\payments\models.py:25
+msgid "Payments"
+msgstr "Płatności"
 
-#~ msgid "Active"
-#~ msgstr "Aktywny"
+#: .\payments\models.py:27
+msgid "Amount"
+msgstr "Kwota"
 
-#~ msgid "Usages left"
-#~ msgstr "Pozostałe użycia"
-
-#~ msgid "Payment"
-#~ msgstr "Płatność"
-
-#~ msgid "Payments"
-#~ msgstr "Płatności"
-
-#~ msgid "Amount"
-#~ msgstr "Kwota"
-
-#~ msgid "Initial entries"
-#~ msgstr "Wstępna liczba wejść"
+#: .\payments\models.py:29
+msgid "Initial entries"
+msgstr "Wstępna liczba wejść"

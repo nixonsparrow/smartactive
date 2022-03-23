@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-13 23:30+0100\n"
+"POT-Creation-Date: 2022-03-23 19:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 
 #: .\home\templates\home\welcome_page.html:6
 msgid "Visit the Wagtail website"
-msgstr ""
+msgstr "Odwiedź stronę Wagtail"
 
 #: .\home\templates\home\welcome_page.html:15
 msgid "View the release notes"
-msgstr ""
+msgstr "Zobacz notatki wydania"
 
 #: .\home\templates\home\welcome_page.html:27
 msgid "Welcome to your new Wagtail site!"
-msgstr ""
+msgstr "Witaj na swojej nowej stronie Wagtail!"
 
 #: .\home\templates\home\welcome_page.html:28
 msgid ""
@@ -38,27 +38,29 @@ msgid ""
 "\">join our community on Slack</a>, or get started with one of the links "
 "below."
 msgstr ""
+"Dołącz do <a href=\"https://github.com/wagtail/wagtail/wiki/Slack\">naszej "
+"społeczności</a> albo zacznij od poniższych linków."
 
 #: .\home\templates\home\welcome_page.html:35
 msgid "Wagtail Documentation"
-msgstr ""
+msgstr "Dokumentacja Wagtail"
 
 #: .\home\templates\home\welcome_page.html:36
 msgid "Topics, references, & how-tos"
-msgstr ""
+msgstr "Tematy, odniesienia i jak to zrobić"
 
 #: .\home\templates\home\welcome_page.html:42
 msgid "Tutorial"
-msgstr ""
+msgstr "Samouczek"
 
 #: .\home\templates\home\welcome_page.html:43
 msgid "Build your first Wagtail site"
-msgstr ""
+msgstr "Zbuduj swoją stronę Wagtail"
 
 #: .\home\templates\home\welcome_page.html:49
 msgid "Admin Interface"
-msgstr ""
+msgstr "Interfejs administratora"
 
 #: .\home\templates\home\welcome_page.html:50
 msgid "Create your superuser first!"
-msgstr ""
+msgstr "Najpierw stwórz swojego superużytkownika!"
