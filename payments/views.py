@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -16,9 +17,10 @@ class Overview(TemplateView):
         return context
 
 
-class PaymentCreateView(SuccessMessageMixin, CreateView):
+class PaymentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Payment
     form_class = PaymentForm
+    permission_required = ('admin',)
 
     def get_success_message(self, cleaned_data):
         return f'{self.object} {_("has been created successfully.")}'
@@ -27,9 +29,10 @@ class PaymentCreateView(SuccessMessageMixin, CreateView):
         return reverse('payments:overview')
 
 
-class PaymentUpdateView(SuccessMessageMixin, UpdateView):
+class PaymentUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Payment
     form_class = PaymentForm
+    permission_required = ('admin',)
     extra_context = {'update_form': True}
 
     def get_success_message(self, cleaned_data):

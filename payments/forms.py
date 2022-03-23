@@ -14,4 +14,4 @@ class PaymentForm(forms.ModelForm):
 
     class Meta:
         model = Payment
-        fields = ['user', 'amount', 'initial_entries', 'event_type']
+        fields = ['user', 'amount', 'initial_usages', 'event_type']

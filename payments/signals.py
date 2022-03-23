@@ -9,7 +9,7 @@ def create_ticket(sender, instance, created, **kwargs):
     if created:
         instance.ticket = Ticket.objects.create(
             user=instance.user,
-            usages_left=instance.initial_entries,
+            usages_left=instance.initial_usages,
             event_type=instance.event_type,
         )
         instance.save()

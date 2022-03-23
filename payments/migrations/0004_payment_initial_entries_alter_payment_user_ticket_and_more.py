@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='payment',
-            name='initial_entries',
+            name='initial_usages',
             field=models.PositiveSmallIntegerField(default=1, verbose_name='Initial entries'),
         ),
         migrations.AlterField(

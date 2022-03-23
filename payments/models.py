@@ -30,10 +30,10 @@ class Payment(TimestampedModel):
     amount = models.DecimalField(_('Amount'), max_digits=10, decimal_places=2)
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL,
                              related_name='payments', null=True, blank=True)
-    initial_entries = models.PositiveSmallIntegerField(_('Initial entries'), default=1, null=False, blank=False)
+    initial_usages = models.PositiveSmallIntegerField(_('Initial usages'), default=1, null=False, blank=False)
 
     event_type = models.ForeignKey(Type, verbose_name=_('Type'), default=None, on_delete=models.SET_NULL,
-                                   related_name='payments', null=True, blank=False)
+                                   related_name='payments', null=True, blank=True)
     ticket = models.OneToOneField(Ticket, verbose_name=_('Ticket'), on_delete=models.SET_NULL, default=None, null=True, blank=True)
 
     def __str__(self):
