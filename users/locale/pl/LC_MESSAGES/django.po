@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR Nikodem Wróbel nixonsparrow@gmail.com, 2022.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 19:39+0100\n"
+"POT-Creation-Date: 2022-03-23 22:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,26 @@ msgstr "adres e-mail"
 #: .\users\models.py:11
 msgid "trainer"
 msgstr "trener"
+
+#: .\users\templates\users\user_form.html:9
+msgid "User form"
+msgstr "Formularz użytkownika"
+
+#: .\users\templates\users\user_form.html:14
+msgid "Update"
+msgstr "Aktualizuj"
+
+#: .\users\templates\users\user_form.html:14
+msgid "Add"
+msgstr "Dodaj"
+
+#: .\users\templates\users\user_form.html:19
+msgid "Reset"
+msgstr "Resetuj"
+
+#: .\users\templates\users\user_form.html:24
+msgid "Cancel"
+msgstr "Anuluj"
 
 #~ msgid "user"
 #~ msgstr "użytkownik"

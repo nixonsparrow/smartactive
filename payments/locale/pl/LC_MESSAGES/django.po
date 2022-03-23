@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR Nikodem Wróbel nixonsparrow@gmail.com, 2022.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 19:39+0100\n"
+"POT-Creation-Date: 2022-03-23 22:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,38 +20,62 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: .\payments\models.py:10
+#: .\payments\models.py:11 .\payments\models.py:37
 msgid "Ticket"
-msgstr ""
+msgstr "Bilet"
 
-#: .\payments\models.py:11
+#: .\payments\models.py:12
 msgid "Tickets"
 msgstr "Bilety"
 
-#: .\payments\models.py:13
+#: .\payments\models.py:14 .\payments\models.py:31
 msgid "User"
 msgstr "Użytkownik"
 
-#: .\payments\models.py:14
+#: .\payments\models.py:15
 msgid "Active"
 msgstr "Aktywny"
 
-#: .\payments\models.py:16
+#: .\payments\models.py:17 .\payments\models.py:35
+msgid "Type"
+msgstr "Typ"
+
+#: .\payments\models.py:19
 msgid "Usages left"
 msgstr "Pozostałe użycia"
 
-#: .\payments\models.py:24
+#: .\payments\models.py:27
 msgid "Payment"
 msgstr "Płatność"
 
-#: .\payments\models.py:25
+#: .\payments\models.py:28
 msgid "Payments"
 msgstr "Płatności"
 
-#: .\payments\models.py:27
+#: .\payments\models.py:30
 msgid "Amount"
 msgstr "Kwota"
 
-#: .\payments\models.py:29
+#: .\payments\models.py:33
 msgid "Initial entries"
 msgstr "Wstępna liczba wejść"
+
+#: .\payments\templates\payments\payment_form.html:9
+msgid "Payment form"
+msgstr "Formularz płatności"
+
+#: .\payments\templates\payments\payment_form.html:14
+msgid "Update"
+msgstr "Aktualizuj"
+
+#: .\payments\templates\payments\payment_form.html:14
+msgid "Add"
+msgstr "Dodaj"
+
+#: .\payments\templates\payments\payment_form.html:19
+msgid "Reset"
+msgstr "Reset"
+
+#: .\payments\templates\payments\payment_form.html:24
+msgid "Cancel"
+msgstr "Anuluj"

@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR Nikodem Wróbel nixonsparrow@gmail.com, 2022.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 19:39+0100\n"
+"POT-Creation-Date: 2022-03-23 22:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: .\events\apps.py:8 .\events\models.py:45
+#: .\events\apps.py:8 .\events\models.py:48
 msgid "Events"
 msgstr "Wydarzenia"
 
@@ -36,82 +36,82 @@ msgstr "Typy"
 msgid "Name"
 msgstr "Nazwa"
 
-#: .\events\models.py:20
+#: .\events\models.py:23
 msgid "Event schema"
 msgstr "Schemat wydarzenia"
 
-#: .\events\models.py:21
+#: .\events\models.py:24
 msgid "Events schemas"
 msgstr "Schematy wydarzeń"
 
-#: .\events\models.py:24
+#: .\events\models.py:27
 msgid "Monday"
 msgstr "Poniedziałek"
 
-#: .\events\models.py:25
+#: .\events\models.py:28
 msgid "Tuesday"
 msgstr "Wtorek"
 
-#: .\events\models.py:26
+#: .\events\models.py:29
 msgid "Wednesday"
 msgstr "Środa"
 
-#: .\events\models.py:27
+#: .\events\models.py:30
 msgid "Thursday"
 msgstr "Czwartek"
 
-#: .\events\models.py:28
+#: .\events\models.py:31
 msgid "Friday"
 msgstr "Piątek"
 
-#: .\events\models.py:29
+#: .\events\models.py:32
 msgid "Saturday"
 msgstr "Sobota"
 
-#: .\events\models.py:30
+#: .\events\models.py:33
 msgid "Sunday"
 msgstr "Niedziela"
 
-#: .\events\models.py:33 .\events\models.py:47
+#: .\events\models.py:36 .\events\models.py:50
 msgid "Title"
 msgstr "Tytuł"
 
-#: .\events\models.py:35
+#: .\events\models.py:38
 msgid "Weekday"
 msgstr "Dzień tygodnia"
 
-#: .\events\models.py:36 .\events\models.py:49
+#: .\events\models.py:39 .\events\models.py:52
 msgid "Time"
 msgstr "Godzina"
 
-#: .\events\models.py:37
+#: .\events\models.py:40
 msgid "Date from"
 msgstr "Data od"
 
-#: .\events\models.py:38
+#: .\events\models.py:41
 msgid "Date to"
 msgstr "Data do"
 
-#: .\events\models.py:39 .\events\models.py:56
+#: .\events\models.py:42 .\events\models.py:59
 msgid "Limit of participants"
 msgstr "Limit uczestników"
 
-#: .\events\models.py:44
+#: .\events\models.py:47
 msgid "Event"
 msgstr "Wydarzenie"
 
-#: .\events\models.py:50
+#: .\events\models.py:53
 msgid "Date"
 msgstr "Data"
 
-#: .\events\models.py:52
+#: .\events\models.py:55
 msgid "Trainer"
 msgstr "Trener"
 
-#: .\events\models.py:53
+#: .\events\models.py:56
 msgid "Participants"
 msgstr "Uczestnicy"
 
-#: .\events\models.py:55
+#: .\events\models.py:58
 msgid "Schema"
 msgstr "Schemat"

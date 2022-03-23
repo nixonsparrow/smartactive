@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from events.models import Type
 from payments.models import Payment
@@ -13,4 +14,4 @@ class PaymentForm(forms.ModelForm):
 
     class Meta:
         model = Payment
-        fields = ['user', 'amount', 'initial_entries']
+        fields = ['user', 'amount', 'initial_entries', 'event_type']
