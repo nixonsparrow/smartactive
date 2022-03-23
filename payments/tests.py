@@ -12,10 +12,6 @@ TEST_PAYMENT = {
     'amount': 29,
 }
 
-TEST_TICKET = {
-
-}
-
 
 class PaymentCreationTestCase(TestCase):
     def setUp(self):
@@ -64,11 +60,12 @@ class PaymentCreationTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Payment.objects.all().count(), 1)
 
-    # def test_post_creates_payment_object(self):
-    #     self.client.login(username=self.superuser.email, password=PASSWORD)
-    #     response = self.client.post(reverse('payments:new'),
-    #                                 data={**TEST_PAYMENT})
-    #     self.assertEqual(response.status_code, 301)
+    def test_post_creates_proper_values(self):
+        self.client.login(username=self.superuser.email, password=PASSWORD)
+        self.client.post(reverse('payments:new'), data={**TEST_PAYMENT})
+        payment = Payment.objects.last()
+        self.assertEqual((payment.initial_usages, payment.amount),
+                         (TEST_PAYMENT['initial_usages'], TEST_PAYMENT['amount']))
 
 
 class PaymentCreationSignalTicketTestCase(TestCase):
@@ -85,10 +82,6 @@ class PaymentCreationSignalTicketTestCase(TestCase):
         self.client.post(reverse('payments:new'), data={**TEST_PAYMENT})
         self.assertEqual(Ticket.objects.all().count(), 1)
 
-    def test_payment_created_initiates_ticket_creation_with_proper_values(self):
-        self.client.post(reverse('payments:new'), data={**TEST_PAYMENT})
-        ticket = Ticket.objects.last()
-
     def test_payment_created_passes_user_to_ticket(self):
         self.client.post(reverse('payments:new'), data={**TEST_PAYMENT, **{'user': self.superuser.id}})
         self.assertEqual(Ticket.objects.last().user, self.superuser)
@@ -97,7 +90,8 @@ class PaymentCreationSignalTicketTestCase(TestCase):
         self.client.post(reverse('payments:new'), data={**TEST_PAYMENT, **{'event_type': self.event_type.id}})
         self.assertEqual(Ticket.objects.last().event_type.name, 'TestType')
 
-    def test_payment_created_passes_usages_to_ticket(self):
-        initial_usages = 5
-        self.client.post(reverse('payments:new'), data={**TEST_PAYMENT, **{'initial_usages': initial_usages}})
-        self.assertEqual(Ticket.objects.last().usages_left, initial_usages)
+    def test_payment_created_has_relation_to_new_ticket(self):
+        self.client.post(reverse('payments:new'), data={**TEST_PAYMENT})
+        self.assertEqual(Ticket.objects.last(), Payment.objects.last().ticket)
+
+# TODO make more tests
