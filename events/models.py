@@ -48,7 +48,8 @@ class Event(models.Model):
         verbose_name_plural = _('Events')
 
     title = models.CharField(_('Title'), default='', null=False, blank=False, max_length=50)
-    type = models.ForeignKey(Type, on_delete=models.SET_NULL, default=None, null=True, blank=True)
+    type = models.ForeignKey(Type, verbose_name=_('Type'), on_delete=models.SET_NULL,
+                             default=None, null=True, blank=True)
     time = models.TimeField(_('Time'), default=datetime.time(hour=18, minute=00), null=False)
     date = models.DateField(_('Date'), default=now)
     trainer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
@@ -57,3 +58,15 @@ class Event(models.Model):
     schema = models.ForeignKey(EventSchema, on_delete=models.SET_NULL, null=True, blank=True,
                                verbose_name=_('Schema'), related_name='events')
     participants_limit = models.IntegerField(_('Limit of participants'), default=10)
+
+    def register_user(self, user):
+        ticket = user.get_ticket(self.type)
+        if ticket:
+            self.participants.add(user)
+            ticket.usages_left -= 1
+            ticket.save()
+        else:
+            raise LookupError(f'There is no valid ticket for user {user} and event {self}!')
+
+    def __str__(self):
+        return f'{self.title} ({self.date} | {self.time})'

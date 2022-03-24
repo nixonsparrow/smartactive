@@ -11,7 +11,8 @@ class Ticket(TimestampedModel):
         verbose_name = _('Ticket')
         verbose_name_plural = _('Tickets')
 
-    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL,
+                             null=True, blank=True, related_name='tickets')
     active = models.BooleanField(verbose_name=_('Active'), default=True)
 
     event_type = models.ForeignKey(Type, verbose_name=_('Type'), default=None, on_delete=models.SET_NULL,
