@@ -1,26 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from events.models import Type
+from events.models import Ticket, Type
 from manager.models import TimestampedModel
 from users.models import User
-
-
-class Ticket(TimestampedModel):
-    class Meta:
-        verbose_name = _('Ticket')
-        verbose_name_plural = _('Tickets')
-
-    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL,
-                             null=True, blank=True, related_name='tickets')
-    active = models.BooleanField(verbose_name=_('Active'), default=True)
-
-    event_type = models.ForeignKey(Type, verbose_name=_('Type'), default=None, on_delete=models.SET_NULL,
-                                   related_name='tickets', null=True, blank=False)
-    usages_left = models.PositiveSmallIntegerField(verbose_name=_('Usages left'), default=1, null=False, blank=False)
-
-    def __str__(self):
-        return f'{_("Ticket")} ({self.id}): {self.user if self.user else _("Incognito")}'
 
 
 class Payment(TimestampedModel):

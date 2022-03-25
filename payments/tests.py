@@ -1,9 +1,9 @@
 from django.shortcuts import reverse
 from django.test import TestCase
 
-from events.models import Type
+from events.models import Ticket, Type
 from payments.forms import PaymentForm
-from payments.models import Payment, Ticket
+from payments.models import Payment
 from users.models import User
 from users.tests import PASSWORD, TEST_SUPERUSER, TEST_USER
 

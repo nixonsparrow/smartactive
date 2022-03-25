@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
+from manager.models import TimestampedModel
 from users.models import User
 
 
@@ -16,6 +17,23 @@ class Type(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Ticket(TimestampedModel):
+    class Meta:
+        verbose_name = _('Ticket')
+        verbose_name_plural = _('Tickets')
+
+    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL,
+                             null=True, blank=True, related_name='tickets')
+    active = models.BooleanField(verbose_name=_('Active'), default=True)
+
+    event_type = models.ForeignKey(Type, verbose_name=_('Type'), default=None, on_delete=models.SET_NULL,
+                                   related_name='tickets', null=True, blank=False)
+    usages_left = models.PositiveSmallIntegerField(verbose_name=_('Usages left'), default=1, null=False, blank=False)
+
+    def __str__(self):
+        return f'{_("Ticket")} ({self.id}): {self.user if self.user else _("Incognito")}'
 
 
 class EventSchema(models.Model):
@@ -59,14 +77,56 @@ class Event(models.Model):
                                verbose_name=_('Schema'), related_name='events')
     participants_limit = models.IntegerField(_('Limit of participants'), default=10)
 
-    def register_user(self, user):
-        ticket = user.get_ticket(self.type)
+    def register_user(self, user, ticket=None):
+        if user in self.participants.all():
+            raise LookupError(f'{user} is already registered in event {self}!')
+
+        if not ticket:
+            ticket = user.get_ticket(self.type)
+
         if ticket:
             self.participants.add(user)
             ticket.usages_left -= 1
             ticket.save()
+            EventRegistration.objects.create(
+                event=self, user=user, ticket=ticket, direction=1,
+                ticket_usages_left_after_register=ticket.usages_left
+            )
         else:
             raise LookupError(f'There is no valid ticket for user {user} and event {self}!')
 
+    def unregister_user(self, user, ticket=None):
+        if user not in self.participants.all():
+            raise LookupError(f'{user} is not registered in event {self}!')
+
+        if not ticket:
+            ticket = user.get_ticket(self.type)
+
+        if ticket:
+            self.participants.remove(user)
+            ticket.usages_left += 1
+            ticket.save()
+            EventRegistration.objects.create(
+                event=self, user=user, ticket=ticket, direction=-1,
+                ticket_usages_left_after_register=ticket.usages_left
+            )
+        else:
+            raise LookupError(f'There is no valid ticket for user {user} and event {self}! '
+                              f'Cannot resolve unregister.')
+
     def __str__(self):
-        return f'{self.title} ({self.date} | {self.time})'
+        return f'{self.title} ({self.date.strftime("%d.%m.%Y")} | {self.time})'
+
+
+class EventRegistration(TimestampedModel):
+    DIRECTIONS = [
+        (1, _('In')),
+        (-1, _('Out')),
+    ]
+
+    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL, null=True,
+                             related_name='event_registrations')
+    ticket = models.ForeignKey(Ticket, verbose_name=_('Ticket'), on_delete=models.SET_NULL, null=True)
+    ticket_usages_left_after_register = models.SmallIntegerField(_('Ticket\' usages left after registering'))
+    event = models.ForeignKey(Event, verbose_name=_('Event'), on_delete=models.SET_NULL, null=True)
+    direction = models.SmallIntegerField(_('Registering'), choices=DIRECTIONS, default=DIRECTIONS[0])
