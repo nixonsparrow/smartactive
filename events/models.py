@@ -4,8 +4,9 @@ from dateutil.utils import today
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from events.exceptions import NoValidTicketFound, UserInParticipants, UserNotInParticipants, RegisterTimePassed, \
-    UnregisterTimePassed
+from events.exceptions import (NoValidTicketFound, ParticipantsFull,
+                               RegisterTimePassed, UnregisterTimePassed,
+                               UserInParticipants, UserNotInParticipants)
 from manager.models import TimestampedModel
 from users.models import User
 
@@ -79,11 +80,12 @@ class Event(models.Model):
     date = models.DateField(_('Date'), default=tomorrow)
     trainer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
                                 verbose_name=_('Trainer'), related_name='events_as_trainer')
-    participants = models.ManyToManyField(User, verbose_name=_('Participants'), related_name='events_as_participant')
+    participants = models.ManyToManyField(User, verbose_name=_('Participants'), blank=True,
+                                          related_name='events_as_participant')
     schema = models.ForeignKey(EventSchema, on_delete=models.SET_NULL, null=True, blank=True,
                                verbose_name=_('Schema'), related_name='events')
-    participants_limit = models.IntegerField(_('Limit of participants'), default=10)
 
+    participants_limit = models.IntegerField(_('Limit of participants'), default=10)
     register_time_limit = models.PositiveSmallIntegerField(_('Register time limit (minutes)'),
                                                            default=0, null=False, blank=False)
     unregister_time_limit = models.PositiveSmallIntegerField(_('Unregister time limit (minutes)'),
@@ -94,6 +96,8 @@ class Event(models.Model):
             raise UserInParticipants(f'{user} is already registered in event {self}!')
         if self.register_time_passed():
             raise RegisterTimePassed(f'It\' too late to register to event {self}!')
+        if self.participants.all().count() >= self.participants_limit:
+            raise ParticipantsFull(f'Limit of participants ({self.participants_limit}) in event {self}!')
 
         if not ticket:
             ticket = user.get_ticket(self.type)
@@ -113,7 +117,7 @@ class Event(models.Model):
         if user not in self.participants.all():
             raise UserNotInParticipants(f'{user} is not registered in event {self}!')
         if self.unregister_time_passed():
-            raise UnregisterTimePassed(f'It\' too late to unregister to event {self}!')
+            raise UnregisterTimePassed(f'It\' too late to unregister from event {self}!')
 
         if not ticket:
             ticket = user.get_ticket(self.type)

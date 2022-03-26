@@ -211,7 +211,7 @@ BASE_URL = 'http://example.com'
 
 AUTH_USER_MODEL = 'users.User'
 
-LOGIN_REDIRECT_URL = 'events:overview'
+LOGIN_REDIRECT_URL = 'calendar:overview'
 LOGIN_URL = 'login'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'

@@ -46,6 +46,7 @@ class UserCreationTestCase(TestCase):
         response = self.client.get(reverse('users:create-form'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_form.html')
+        self.assertTemplateUsed(response, 'base.html')
 
     def test_user_post_creates_user(self):
         response = self.client.post(reverse('users:create-form'),
@@ -62,6 +63,12 @@ class UserUpdateTestCase(TestCase):
         self.user = User.objects.create_user(username=TEST_USER['username'],
                                              email=TEST_USER['email'],
                                              password=PASSWORD)
+
+    def test_update_view_template_used(self):
+        self.client.login(username=self.superuser.email, password=PASSWORD)
+        response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
+        self.assertTemplateUsed(response, 'users/user_form.html')
+        self.assertTemplateUsed(response, 'base.html')
 
     def test_update_view_not_logged_redirect(self):
         response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
@@ -82,7 +89,6 @@ class UserUpdateTestCase(TestCase):
         self.client.login(username=self.superuser.email, password=PASSWORD)
         response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'users/user_form.html')
 
     def test_user_post_updates_user_admin(self):
         self.client.login(username=self.superuser.email, password=PASSWORD)
@@ -104,6 +110,7 @@ class ProfileViewTestCase(TestCase):
         response = self.client.get(reverse('users:profile'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/profile.html')
+        self.assertTemplateUsed(response, 'base.html')
 
 
 class LoginTestCase(TestCase):
@@ -162,7 +169,7 @@ class LoggedInOrLoggedOutTestCase(TestCase):
 
     def test_not_logged_in_user_see_calendar_overview(self):
         self.client.login(username=self.user.email, password=PASSWORD)
-        response = self.client.get(reverse('events:overview'))
+        response = self.client.get(reverse('calendar:overview'))
         self.assertEqual(response.status_code, 200)
 
     def test_logged_in_user_see_user_related_site(self):
@@ -171,6 +178,6 @@ class LoggedInOrLoggedOutTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/profile.html')
 
-    def test_not_logged_in_user_doesnt_see_user_related_site(self):
+    def test_not_logged_in_user_cannot_see_user_related_site(self):
         response = self.client.get(reverse('users:profile'))
         self.assertEqual(response.status_code, 302)

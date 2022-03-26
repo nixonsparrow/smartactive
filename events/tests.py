@@ -2,13 +2,15 @@ import datetime
 
 from dateutil.utils import today
 from django.test import TestCase
+from django.urls import reverse
 from django.utils.timezone import now
 
-from events.exceptions import RegisterTimePassed, NoValidTicketFound, UserInParticipants, UnregisterTimePassed, \
-    UserNotInParticipants
+from events.exceptions import (NoValidTicketFound, ParticipantsFull,
+                               RegisterTimePassed, UnregisterTimePassed,
+                               UserInParticipants, UserNotInParticipants)
 from events.models import Event, EventRegistration, Ticket, Type
 from users.models import User
-from users.tests import PASSWORD, TEST_USER
+from users.tests import PASSWORD, TEST_SUPERUSER, TEST_USER
 
 TEST_TYPE = {
     'name': 'Test Type'
@@ -23,6 +25,24 @@ TEST_EVENT = {
 TEST_TICKET = {
     'usages_left': 4
 }
+
+
+class OverviewTestCase(TestCase):
+    def setUp(self):
+        self.type = Type.objects.create(name=TEST_TYPE['name'])
+        self.event = Event.objects.create(title=TEST_EVENT['title'],
+                                          type=self.type,
+                                          date=TEST_EVENT['date'],
+                                          time=TEST_EVENT['time'])
+
+    def test_calendar_overview_template_used(self):
+        response = self.client.get(reverse('calendar:overview'))
+        self.assertTemplateUsed(response, 'events/overview.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_calendar_overview_anonymous_user_see_page(self):
+        response = self.client.get(reverse('calendar:overview'))
+        self.assertEqual(response.status_code, 200)
 
 
 class RegisterTestCase(TestCase):
@@ -122,6 +142,11 @@ class CannotRegisterTestCase(TestCase):
     def test_if_user_cannot_register_while_already_participating(self):
         self.event.participants.add(self.user)
         with self.assertRaises(UserInParticipants):
+            self.event.register_user(self.user)
+
+    def test_if_user_cannot_register_if_participants_limit_reached(self):
+        self.event.participants_limit = 0
+        with self.assertRaises(ParticipantsFull):
             self.event.register_user(self.user)
 
     def test_if_user_cannot_register_with_ticket_without_usages_left(self):
@@ -224,7 +249,7 @@ class CannotUnregisterTestCase(TestCase):
     def test_if_user_cannot_unregister_after_unregister_time_limit(self):
         event = Event.objects.create(title=TEST_EVENT['title'], date=today(), type=self.event_type,
                                      time=(datetime.datetime.now() + datetime.timedelta(minutes=60)).time(),
-                                     unregister_time_limit=61)
+                                     unregister_time_limit=60)
         event.participants.add(self.user)
         with self.assertRaises(UnregisterTimePassed):
             event.unregister_user(self.user)
@@ -233,4 +258,39 @@ class CannotUnregisterTestCase(TestCase):
         with self.assertRaises(UserNotInParticipants):
             self.event.unregister_user(self.user)
 
-    # TODO make tests
+
+class EventDetailViewTestCase(TestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser(
+            username=TEST_SUPERUSER['username'],
+            email=TEST_SUPERUSER['email'],
+            password=PASSWORD)
+
+        self.user = User.objects.create_user(
+            username=TEST_USER['username'],
+            email=TEST_USER['email'],
+            password=PASSWORD)
+
+        self.event_type = Type.objects.create(name=TEST_TYPE['name'])
+        self.ticket = Ticket.objects.create(user=self.user,
+                                            event_type=self.event_type,
+                                            usages_left=TEST_TICKET['usages_left'])
+        self.event = Event.objects.create(title=TEST_EVENT['title'],
+                                          type=self.event_type,
+                                          date=TEST_EVENT['date'],
+                                          time=TEST_EVENT['time'])
+
+    def test_detail_view_template_used(self):
+        response = self.client.get(reverse('calendar:event-detail', kwargs={'pk': self.event.id}))
+        self.assertTemplateUsed(response, 'events/event_detail.html')
+
+    def test_detail_view_anonymous_user_see_page(self):
+        response = self.client.get(reverse('calendar:event-detail', kwargs={'pk': self.event.id}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_detail_view_wrong_id_404(self):
+        response = self.client.get(reverse('calendar:event-detail', kwargs={'pk': self.event.id + 1}))
+        self.assertEqual(response.status_code, 404)
+
+    def test_something(self):
+        pass
