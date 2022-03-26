@@ -1,11 +1,17 @@
 import datetime
 
+from dateutil.utils import today
 from django.db import models
-from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
+from events.exceptions import NoValidTicketFound, UserInParticipants, UserNotInParticipants, RegisterTimePassed, \
+    UnregisterTimePassed
 from manager.models import TimestampedModel
 from users.models import User
+
+
+def tomorrow():
+    return today() + datetime.timedelta(days=1)
 
 
 class Type(models.Model):
@@ -52,11 +58,12 @@ class EventSchema(models.Model):
     ]
 
     title = models.CharField(_('Title'), max_length=50, default='', null=False, blank=False)
+    subtitle = models.CharField(_('Subtitle'), max_length=50, default='', null=True, blank=True)
     type = models.ForeignKey(Type, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     weekday = models.IntegerField(_('Weekday'), choices=WEEKDAYS, default=None, null=False, blank=False)
     time = models.TimeField(_('Time'), default=datetime.time(hour=18, minute=00), null=False)
-    date_from = models.DateField(_('Date from'), default=now, null=False)
-    date_to = models.DateField(_('Date to'), default=now, null=False)
+    date_from = models.DateField(_('Date from'), default=today, null=False)
+    date_to = models.DateField(_('Date to'), default=tomorrow, null=False)
     participants_limit = models.IntegerField(_('Limit of participants'), default=10)
 
 
@@ -69,7 +76,7 @@ class Event(models.Model):
     type = models.ForeignKey(Type, verbose_name=_('Type'), on_delete=models.SET_NULL,
                              default=None, null=True, blank=True)
     time = models.TimeField(_('Time'), default=datetime.time(hour=18, minute=00), null=False)
-    date = models.DateField(_('Date'), default=now)
+    date = models.DateField(_('Date'), default=tomorrow)
     trainer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
                                 verbose_name=_('Trainer'), related_name='events_as_trainer')
     participants = models.ManyToManyField(User, verbose_name=_('Participants'), related_name='events_as_participant')
@@ -77,9 +84,16 @@ class Event(models.Model):
                                verbose_name=_('Schema'), related_name='events')
     participants_limit = models.IntegerField(_('Limit of participants'), default=10)
 
+    register_time_limit = models.PositiveSmallIntegerField(_('Register time limit (minutes)'),
+                                                           default=0, null=False, blank=False)
+    unregister_time_limit = models.PositiveSmallIntegerField(_('Unregister time limit (minutes)'),
+                                                             default=0, null=False, blank=False)
+
     def register_user(self, user, ticket=None):
         if user in self.participants.all():
-            raise LookupError(f'{user} is already registered in event {self}!')
+            raise UserInParticipants(f'{user} is already registered in event {self}!')
+        if self.register_time_passed():
+            raise RegisterTimePassed(f'It\' too late to register to event {self}!')
 
         if not ticket:
             ticket = user.get_ticket(self.type)
@@ -93,11 +107,13 @@ class Event(models.Model):
                 ticket_usages_left_after_register=ticket.usages_left
             )
         else:
-            raise LookupError(f'There is no valid ticket for user {user} and event {self}!')
+            raise NoValidTicketFound(f'There is no valid ticket for user {user} and event {self}!')
 
     def unregister_user(self, user, ticket=None):
         if user not in self.participants.all():
-            raise LookupError(f'{user} is not registered in event {self}!')
+            raise UserNotInParticipants(f'{user} is not registered in event {self}!')
+        if self.unregister_time_passed():
+            raise UnregisterTimePassed(f'It\' too late to unregister to event {self}!')
 
         if not ticket:
             ticket = user.get_ticket(self.type)
@@ -111,8 +127,14 @@ class Event(models.Model):
                 ticket_usages_left_after_register=ticket.usages_left
             )
         else:
-            raise LookupError(f'There is no valid ticket for user {user} and event {self}! '
-                              f'Cannot resolve unregister.')
+            raise NoValidTicketFound(f'There is no valid ticket for user {user} and event {self}! '
+                                     f'Cannot resolve unregister.')
+
+    def register_time_passed(self):
+        return datetime.datetime.now() > datetime.datetime.combine(self.date, self.time) - datetime.timedelta(minutes=self.register_time_limit)
+
+    def unregister_time_passed(self):
+        return datetime.datetime.now() > datetime.datetime.combine(self.date, self.time) - datetime.timedelta(minutes=self.unregister_time_limit)
 
     def __str__(self):
         return f'{self.title} ({self.date.strftime("%d.%m.%Y")} | {self.time})'

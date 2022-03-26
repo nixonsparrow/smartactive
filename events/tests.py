@@ -1,8 +1,11 @@
 import datetime
 
+from dateutil.utils import today
 from django.test import TestCase
 from django.utils.timezone import now
 
+from events.exceptions import RegisterTimePassed, NoValidTicketFound, UserInParticipants, UnregisterTimePassed, \
+    UserNotInParticipants
 from events.models import Event, EventRegistration, Ticket, Type
 from users.models import User
 from users.tests import PASSWORD, TEST_USER
@@ -51,7 +54,7 @@ class RegisterTestCase(TestCase):
 
     def test_if_user_without_valid_ticket_cannot_register_to_event(self):
         self.assertEqual(self.event.participants.all().count(), 0)
-        with self.assertRaises(LookupError):
+        with self.assertRaises(NoValidTicketFound):
             self.event.register_user(self.new_user)
         self.assertEqual(self.event.participants.all().count(), 0)
 
@@ -63,7 +66,7 @@ class RegisterTestCase(TestCase):
 
     def test_if_ticket_usages_left_not_decrease_after_failed_register(self):
         self.assertEqual(self.ticket.usages_left, TEST_TICKET['usages_left'])
-        with self.assertRaises(LookupError):
+        with self.assertRaises(NoValidTicketFound):
             self.event.register_user(self.new_user)
         self.ticket.refresh_from_db()
         self.assertEqual(self.ticket.usages_left, TEST_TICKET['usages_left'])
@@ -75,32 +78,87 @@ class RegisterTestCase(TestCase):
 
     def test_if_event_registration_created_with_proper_user_after_register(self):
         self.event.register_user(self.user)
-        self.assertEqual(EventRegistration.objects.first().user, self.user)
+        self.assertEqual(EventRegistration.objects.last().user, self.user)
 
     def test_if_event_registration_created_with_proper_ticket_after_register(self):
         self.event.register_user(self.user)
-        self.assertEqual(EventRegistration.objects.first().ticket, self.ticket)
+        self.assertEqual(EventRegistration.objects.last().ticket, self.ticket)
 
     def test_if_event_registration_created_with_proper_ticket_usages_left_after_register(self):
         wanted_usages = self.ticket.usages_left - 1
         self.event.register_user(self.user)
-        self.assertEqual(EventRegistration.objects.first().ticket.usages_left, wanted_usages)
+        self.assertEqual(EventRegistration.objects.last().ticket.usages_left, wanted_usages)
 
     def test_if_event_registration_created_with_proper_event_after_register(self):
         self.event.register_user(self.user)
-        self.assertEqual(EventRegistration.objects.first().event, self.event)
+        self.assertEqual(EventRegistration.objects.last().event, self.event)
+
+    def test_if_event_registration_created_with_proper_direction_after_register(self):
+        self.event.register_user(self.user)
+        self.assertEqual(EventRegistration.objects.last().direction, 1)
+
+
+class CannotRegisterTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username=TEST_USER['username'],
+            email=TEST_USER['email'],
+            password=PASSWORD)
+
+        self.new_user = User.objects.create_user(
+            username=TEST_USER['username'] + 'TEST',
+            email=TEST_USER['email'] + '+TEST',
+            password=PASSWORD)
+
+        self.event_type = Type.objects.create(name=TEST_TYPE['name'])
+        self.ticket = Ticket.objects.create(user=self.user,
+                                            event_type=self.event_type,
+                                            usages_left=TEST_TICKET['usages_left'])
+        self.event = Event.objects.create(title=TEST_EVENT['title'],
+                                          type=self.event_type,
+                                          date=TEST_EVENT['date'],
+                                          time=TEST_EVENT['time'])
 
     def test_if_user_cannot_register_while_already_participating(self):
         self.event.participants.add(self.user)
-        with self.assertRaises(LookupError):
+        with self.assertRaises(UserInParticipants):
             self.event.register_user(self.user)
 
     def test_if_user_cannot_register_with_ticket_without_usages_left(self):
         self.ticket = Ticket.objects.create(user=self.new_user,
-                                            event_type=self.type,
+                                            event_type=self.event_type,
                                             usages_left=0)
-        with self.assertRaises(LookupError):
+        with self.assertRaises(NoValidTicketFound):
             self.event.register_user(self.new_user)
+
+    def test_if_user_cannot_register_after_register_time_limit(self):
+        event = Event.objects.create(title=TEST_EVENT['title'], date=today(), type=self.event_type,
+                                     time=(datetime.datetime.now() + datetime.timedelta(minutes=60)).time(),
+                                     register_time_limit=61)
+        with self.assertRaises(RegisterTimePassed):
+            event.register_user(self.user)
+
+
+class UnregisterTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username=TEST_USER['username'],
+            email=TEST_USER['email'],
+            password=PASSWORD)
+
+        self.new_user = User.objects.create_user(
+            username=TEST_USER['username'] + 'TEST',
+            email=TEST_USER['email'] + '+TEST',
+            password=PASSWORD)
+
+        self.event_type = Type.objects.create(name=TEST_TYPE['name'])
+        self.ticket = Ticket.objects.create(user=self.user,
+                                            event_type=self.event_type,
+                                            usages_left=TEST_TICKET['usages_left'])
+        self.event = Event.objects.create(title=TEST_EVENT['title'],
+                                          type=self.event_type,
+                                          date=TEST_EVENT['date'],
+                                          time=TEST_EVENT['time'])
 
     def test_if_event_registration_created_after_unregister(self):
         self.event.register_user(self.user)
@@ -111,22 +169,68 @@ class RegisterTestCase(TestCase):
     def test_if_event_registration_created_with_proper_user_after_unregister(self):
         self.event.participants.add(self.user)
         self.event.unregister_user(self.user)
-        self.assertEqual(EventRegistration.objects.first().user, self.user)
+        self.assertEqual(EventRegistration.objects.last().user, self.user)
 
     def test_if_event_registration_created_with_proper_ticket_after_unregister(self):
         self.event.participants.add(self.user)
         self.event.unregister_user(self.user)
-        self.assertEqual(EventRegistration.objects.first().ticket, self.ticket)
+        self.assertEqual(EventRegistration.objects.last().ticket, self.ticket)
 
     def test_if_event_registration_created_with_proper_ticket_usages_left_after_unregister(self):
         wanted_usages = self.ticket.usages_left + 1
         self.event.participants.add(self.user)
         self.event.unregister_user(self.user)
-        self.assertEqual(EventRegistration.objects.first().ticket.usages_left, wanted_usages)
+        self.assertEqual(EventRegistration.objects.last().ticket.usages_left, wanted_usages)
 
     def test_if_event_registration_created_with_proper_event_after_unregister(self):
         self.event.participants.add(self.user)
         self.event.unregister_user(self.user)
-        self.assertEqual(EventRegistration.objects.first().event, self.event)
+        self.assertEqual(EventRegistration.objects.last().event, self.event)
 
-# TODO make more tests
+    def test_if_event_registration_created_with_proper_direction_after_unregister(self):
+        self.event.participants.add(self.user)
+        self.event.unregister_user(self.user)
+        self.assertEqual(EventRegistration.objects.last().direction, -1)
+
+    def test_if_proper_ticket_gets_usage_after_unregister(self):
+        wanted_usages = self.ticket.usages_left + 1
+        self.event.participants.add(self.user)
+        self.event.unregister_user(self.user)
+        ticket = self.user.get_ticket(self.event.type)
+        self.assertEqual(ticket.usages_left, wanted_usages)
+
+
+class CannotUnregisterTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username=TEST_USER['username'],
+            email=TEST_USER['email'],
+            password=PASSWORD)
+
+        self.new_user = User.objects.create_user(
+            username=TEST_USER['username'] + 'TEST',
+            email=TEST_USER['email'] + '+TEST',
+            password=PASSWORD)
+
+        self.event_type = Type.objects.create(name=TEST_TYPE['name'])
+        self.ticket = Ticket.objects.create(user=self.user,
+                                            event_type=self.event_type,
+                                            usages_left=TEST_TICKET['usages_left'])
+        self.event = Event.objects.create(title=TEST_EVENT['title'],
+                                          type=self.event_type,
+                                          date=TEST_EVENT['date'],
+                                          time=TEST_EVENT['time'])
+
+    def test_if_user_cannot_unregister_after_unregister_time_limit(self):
+        event = Event.objects.create(title=TEST_EVENT['title'], date=today(), type=self.event_type,
+                                     time=(datetime.datetime.now() + datetime.timedelta(minutes=60)).time(),
+                                     unregister_time_limit=61)
+        event.participants.add(self.user)
+        with self.assertRaises(UnregisterTimePassed):
+            event.unregister_user(self.user)
+
+    def test_if_user_cannot_unregister_while_not_participating(self):
+        with self.assertRaises(UserNotInParticipants):
+            self.event.unregister_user(self.user)
+
+    # TODO make tests
