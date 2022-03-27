@@ -1,6 +1,8 @@
-{% load static wagtailcore_tags wagtailuserbar menus_tags %}
+{% load static wagtailcore_tags wagtailuserbar menus_tags wagtailimages_tags %}
 
 {% get_menu 'main' as navigation %}
+{% get_menu_logo 'site_logo' as pre_logo %}
+{% image pre_logo fill-40x40 as site_logo %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -15,7 +17,7 @@
                 {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
             {% endblock %}
         </title>
-        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+        <link rel="shortcut icon" type="image/png" href="{{ site_logo.url }}"/>
 
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,24 +25,25 @@
         {# Global stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/smartmove.css' %}">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
-
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="/">LOGO</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img src="{{ site_logo.url }}" width="{{ site_logo.width }}"
+                        height="{{ site_logo.height }}" alt="{{ site_logo.alt }}"
+                         class="rounded img-fluid" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
+                <ul class="navbar-nav">
 <!--                  <a class="nav-link active" aria-current="page" href="#">Home</a>-->
 <!--                  <a class="nav-link" href="#">Pricing</a>-->
 <!--                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
@@ -56,22 +59,34 @@
           </div>
         </nav>
 
-        <main role="main" class="container mt-5">
-          <div class="row">
-            <div class="col-md-12">
-              {% if messages %}
-                {% for message in messages %}
-                  <div class="alert alert-{{ message.tags }}" style="overflow-x:auto;">
-                    {{ message }}
-                  </div>
-                {% endfor %}
-              {% endif %}
+    <body class="{% block body_class %}{% endblock %}" style="background-color: grey"><br />
 
-              {% block content %}
-              {% endblock content %}
+        <main role="main" class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" style="overflow-x:auto;">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% block content %}
+                {% endblock content %}
+                </div>
             </div>
-          </div>
         </main>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" align="center">
+                        <img src="" alt="">
+                        COPYRIGHTS - NIXON SPARROW
+                    </div>
+                </div>
+            </div>
+        </footer>
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/smartmove.js' %}"></script>

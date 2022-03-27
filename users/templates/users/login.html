@@ -2,12 +2,14 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<form method="post">
-    <div class="form-group">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <input class="form-control mt-4 btn btn-success" type="submit">
-    </div>
-</form>
+<div class="content-section">
+    <form method="post">
+        <div class="form-group">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="form-control mt-4 btn btn-success" type="submit">
+        </div>
+    </form>
+</div>
 
 {% endblock content %}

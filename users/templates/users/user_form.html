@@ -2,11 +2,12 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
+<div class="content-section">
 <form method="post">
     <div class="form-group">
         {% csrf_token %}
         <fieldset class="border-bottom mb-2">
-            <legend class="border-bottom mb-2">{% trans 'User form' %}</legend>
+            <legend class="border-bottom mb-2" align="center">{% trans 'User form' %}</legend>
                 {{ form|crispy }}
         </fieldset>
         <div class="d-flex">
@@ -15,11 +16,11 @@
             </button>
 
             <button class="form-button m-1 btn btn-warning" type="reset" id="reset_button"
-                    onclick="return confirm('You are going to reset form values. Proceed?');">
+                    onclick="return confirm('{% trans 'You are going to reset form values. Proceed?' %}');">
                 {% trans 'Reset' %}
             </button>
 
-            <a href="#">
+            <a href="{% if cancel_url %}{{ cancel_url }}{% else %}{% url 'users:profile' %}{% endif %}">
                 <button class="form-button m-1 btn btn-danger" type="button" id="cancel_button">
                     {% trans 'Cancel' %}
                 </button>
@@ -27,4 +28,5 @@
         </div>
     </div>
 </form>
+</div>
 {% endblock content %}

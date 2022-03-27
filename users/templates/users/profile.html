@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
-{% for e in events %}
-{{ e }}
-{% endfor %}
+{% block content %}
+
+    <div align="center" class="content-section">
+        <h2 align="center" class="account-heading">{{ user.username }}</h2>
+        <h5>{{ user.full_name }}</h5>
+        <p class="text-secondary">{{ user.email }}</p>
+    </div>
+
+{% endblock content %}

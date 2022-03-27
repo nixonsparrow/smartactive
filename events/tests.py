@@ -283,6 +283,7 @@ class EventDetailViewTestCase(TestCase):
     def test_detail_view_template_used(self):
         response = self.client.get(reverse('calendar:event-detail', kwargs={'pk': self.event.id}))
         self.assertTemplateUsed(response, 'events/event_detail.html')
+        self.assertTemplateUsed(response, 'base.html')
 
     def test_detail_view_anonymous_user_see_page(self):
         response = self.client.get(reverse('calendar:event-detail', kwargs={'pk': self.event.id}))
