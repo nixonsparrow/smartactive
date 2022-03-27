@@ -14,6 +14,12 @@ from users.forms import LoginForm, UserCreateForm, UserUpdateForm
 from users.models import User
 
 
+class UsersListView(PermissionRequiredMixin, ListView):
+    model = User
+    permission_required = ('admin',)
+    context_object_name = 'users'
+
+
 class UserCreateView(CreateView):
     model = User
     form_class = UserCreateForm

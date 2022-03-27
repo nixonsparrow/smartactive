@@ -42,6 +42,7 @@ class PaymentCreationTestCase(TestCase):
     def test_create_view_anonymous_user_redirect(self):
         response = self.client.get(reverse('payments:new'))
         self.assertEqual(response.status_code, 302)
+        self.assertIn('/login/', response.url)
 
     def test_create_view_common_user_forbidden(self):
         self.client.login(username=self.user.email, password=PASSWORD)

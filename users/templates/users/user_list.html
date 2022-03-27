@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <table width="100%">
+            <tr>
+                <th width="10%">
+                    Id
+                </th>
+                <th width="30%">
+                    {% trans 'Full name' %}
+                </th>
+                <th width="40%">
+                    {% trans 'E-mail address' %}
+                </th>
+                <th width="20%">
+                    {% trans 'Trainer' %}
+                </th>
+            </tr>
+        {% for user in users %}
+            <tr id="user_row_{{ user.i }}">
+                <td>
+                    {{ user.id }}
+                </td>
+                <td>
+                    {{ user.get_full_name }}
+                </td>
+                <td>
+                    {{ user.email }}
+                </td>
+                <td>
+                    {{ user.trainer }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}

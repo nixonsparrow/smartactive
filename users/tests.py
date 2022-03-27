@@ -21,6 +21,36 @@ TEST_SUPERUSER = {
 PASSWORD = 'T3$tuser!@#$%^&*()'
 
 
+class UserListViewTestCase(TestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser(username=TEST_SUPERUSER['username'],
+                                                       email=TEST_SUPERUSER['email'],
+                                                       password=PASSWORD)
+        self.user = User.objects.create_user(username=TEST_USER['username'],
+                                             email=TEST_USER['email'],
+                                             password=PASSWORD)
+
+    def test_list_view_template_used(self):
+        self.client.login(username=self.superuser.email, password=PASSWORD)
+        response = self.client.get(reverse('users:all'))
+        self.assertTemplateUsed(response, 'users/user_list.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_list_view_anonymous_user_redirects(self):
+        response = self.client.get(reverse('users:all'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_list_view_admin_sees_list(self):
+        self.client.login(username=self.superuser.email, password=PASSWORD)
+        response = self.client.get(reverse('users:all'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_list_view_logged_user_forbidden(self):
+        self.client.login(username=self.user.email, password=PASSWORD)
+        response = self.client.get(reverse('users:all'))
+        self.assertEqual(response.status_code, 403)
+
+
 class UserCreationTestCase(TestCase):
     def test_simple_creation(self):
         self.assertEqual(User.objects.all().count(), 0)
@@ -70,11 +100,12 @@ class UserUpdateTestCase(TestCase):
         self.assertTemplateUsed(response, 'users/user_form.html')
         self.assertTemplateUsed(response, 'base.html')
 
-    def test_update_view_not_logged_redirect(self):
+    def test_update_view_anonymous_redirects_to_login(self):
         response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
         self.assertEqual(response.status_code, 302)
+        self.assertIn('/login/', response.url)
 
-    def test_update_view_uses_user_form_forbidden(self):
+    def test_update_view_user_form_logged_user_forbidden(self):
         self.client.login(username=self.user.email, password=PASSWORD)
         response = self.client.get(reverse('users:update-form', kwargs={'pk': self.user.id}))
         self.assertEqual(response.status_code, 403)
@@ -111,6 +142,11 @@ class ProfileViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/profile.html')
         self.assertTemplateUsed(response, 'base.html')
+
+    def test_anonymous_redirects_to_login(self):
+        response = self.client.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('/login/', response.url)
 
 
 class LoginTestCase(TestCase):
@@ -151,6 +187,7 @@ class LogoutTestCase(TestCase):
     def test_if_user_can_logout(self):
         response = self.client.get(reverse('users:profile'))
         self.assertEqual(response.status_code, 302)
+        self.assertIn('/login/', response.url)
 
         self.client.login(username=self.user.email, password=PASSWORD)
         response = self.client.get(reverse('users:profile'))
@@ -177,7 +214,9 @@ class LoggedInOrLoggedOutTestCase(TestCase):
         response = self.client.get(reverse('users:profile'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/profile.html')
+        self.assertTemplateUsed(response, 'base.html')
 
-    def test_not_logged_in_user_cannot_see_user_related_site(self):
+    def test_anonymous_user_cannot_see_user_related_site(self):
         response = self.client.get(reverse('users:profile'))
         self.assertEqual(response.status_code, 302)
+        self.assertIn('/login/', response.url)
