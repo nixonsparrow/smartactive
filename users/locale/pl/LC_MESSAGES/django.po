@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 23:59+0100\n"
+"POT-Creation-Date: 2022-03-27 12:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,40 +25,49 @@ msgid "Users"
 msgstr "Użytkownicy"
 
 #: .\users\models.py:7
-msgid "first name"
-msgstr "imię"
+msgid "First name"
+msgstr "Imię"
 
 #: .\users\models.py:8
-msgid "last name"
-msgstr "nazwisko"
+msgid "Last name"
+msgstr "Nazwisko"
 
 #: .\users\models.py:9
-msgid "email address"
-msgstr "adres e-mail"
+msgid "Email address"
+msgstr "Adres e-mail"
 
 #: .\users\models.py:11
-msgid "trainer"
-msgstr "trener"
+msgid "Trainer"
+msgstr "Trener"
 
-#: .\users\templates\users\user_form.html:9
+#: .\users\templates\users\logged_out.html:6
+msgid "Logged out successfully"
+msgstr "Wylogowano pomyślnie"
+
+#: .\users\templates\users\user_form.html:10
 msgid "User form"
 msgstr "Formularz użytkownika"
 
-#: .\users\templates\users\user_form.html:14
+#: .\users\templates\users\user_form.html:15
 msgid "Update"
 msgstr "Aktualizuj"
 
-#: .\users\templates\users\user_form.html:14
+#: .\users\templates\users\user_form.html:15
 msgid "Add"
 msgstr "Dodaj"
 
 #: .\users\templates\users\user_form.html:19
+msgid "You are going to reset form values. Proceed?"
+msgstr "Zamierzasz zresetować dane formularza. Kontynuować?"
+
+#: .\users\templates\users\user_form.html:20
 msgid "Reset"
 msgstr "Resetuj"
 
-#: .\users\templates\users\user_form.html:24
+#: .\users\templates\users\user_form.html:25
 msgid "Cancel"
 msgstr "Anuluj"
 
-#~ msgid "user"
-#~ msgstr "użytkownik"
+#: .\users\views.py:58
+msgid "Your profile has been updated."
+msgstr "Twój profil został zaktualizowany."

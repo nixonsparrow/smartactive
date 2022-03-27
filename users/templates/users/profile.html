@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 
     <div align="center" class="content-section">
         <h2 align="center" class="account-heading">{{ user.username }}</h2>
         <h5>{{ user.full_name }}</h5>
         <p class="text-secondary">{{ user.email }}</p>
+        <a href="{% url 'users:edit-profile' %}">
+            <button class="form-button m-1 btn btn-info" id="edit_profile_button">
+                {% trans 'Edit profile' %}
+            </button>
+        </a>
     </div>
+
 
 {% endblock content %}

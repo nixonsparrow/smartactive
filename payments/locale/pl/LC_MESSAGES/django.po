@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 23:59+0100\n"
+"POT-Creation-Date: 2022-03-27 12:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,45 +20,33 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: .\payments\models.py:11 .\payments\models.py:37
-msgid "Ticket"
-msgstr "Bilet"
-
-#: .\payments\models.py:12
-msgid "Tickets"
-msgstr "Bilety"
-
-#: .\payments\models.py:14 .\payments\models.py:31
-msgid "User"
-msgstr "Użytkownik"
-
-#: .\payments\models.py:15
-msgid "Active"
-msgstr "Aktywny"
-
-#: .\payments\models.py:17 .\payments\models.py:35
-msgid "Type"
-msgstr "Typ"
-
-#: .\payments\models.py:19
-msgid "Usages left"
-msgstr "Pozostałe użycia"
-
-#: .\payments\models.py:27
+#: .\payments\models.py:11
 msgid "Payment"
 msgstr "Płatność"
 
-#: .\payments\models.py:28
+#: .\payments\models.py:12
 msgid "Payments"
 msgstr "Płatności"
 
-#: .\payments\models.py:30
+#: .\payments\models.py:14
 msgid "Amount"
 msgstr "Kwota"
 
-#: .\payments\models.py:33
+#: .\payments\models.py:15
+msgid "User"
+msgstr "Użytkownik"
+
+#: .\payments\models.py:17
 msgid "Initial usages"
 msgstr "Wstępna liczba wejść"
+
+#: .\payments\models.py:19
+msgid "Type"
+msgstr "Typ"
+
+#: .\payments\models.py:21
+msgid "Ticket"
+msgstr "Bilet"
 
 #: .\payments\templates\payments\payment_form.html:9
 msgid "Payment form"

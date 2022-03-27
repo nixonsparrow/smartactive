@@ -153,6 +153,6 @@ class EventRegistration(TimestampedModel):
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL, null=True,
                              related_name='event_registrations')
     ticket = models.ForeignKey(Ticket, verbose_name=_('Ticket'), on_delete=models.SET_NULL, null=True)
-    ticket_usages_left_after_register = models.SmallIntegerField(_('Ticket\' usages left after registering'))
+    ticket_usages_left_after_register = models.SmallIntegerField(_('Ticket\'s usages left after registering'))
     event = models.ForeignKey(Event, verbose_name=_('Event'), on_delete=models.SET_NULL, null=True)
     direction = models.SmallIntegerField(_('Registering'), choices=DIRECTIONS, default=DIRECTIONS[0])
