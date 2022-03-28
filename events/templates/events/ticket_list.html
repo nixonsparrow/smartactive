@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <table width="100%" id="payments_table" class="table-no-border" align="center">
+        <tr align="center">
+            <th id="id_header" width="5%">
+                Id
+            </th>
+            <th id="user_header" width="15%">
+                {% trans 'User' %}
+            </th>
+            <th id="usages_left_header" width="10%">
+                {% trans 'Usages left' %}
+            </th>
+            <th id="event_type_header" width="20%">
+                {% trans 'Type' %}
+            </th>
+            <th id="active_header" width="10%">
+                {% trans 'Active' %}
+            </th>
+            <th id="payment_header" width="25%">
+                {% trans 'Payment' %}
+            </th>
+            <th id="updated_header" width="15%">
+                {% trans 'Last updated' %}
+            </th>
+            <th id="edit_header" width="5%">
+                <!-- It's just a column for edit button -->
+            </th>
+        </tr>
+        {% for ticket in tickets %}
+        {% cycle 'table-row-lightgray' 'table-row-white' as table_row silent %}
+            <tr class="{{ table_row }}" style="overflow-x:auto;"
+                id="ticket_row_{{ ticket.id }}">
+                <td id="id_ticket_{{ ticket.id }}" align="center">
+                    {{ ticket.id }}
+                </td>
+                <td id="user_ticket_{{ ticket.id }}" align="center">
+                    {{ ticket.user }}
+                </td>
+                <td id="usages_left_ticket_{{ ticket.id }}" align="center">
+                    {{ ticket.usages_left }}
+                </td>
+                <td id="event_type_ticket_{{ ticket.id }}" align="center">
+                    {{ ticket.event_type }}
+                </td>
+                <td id="active_ticket_{{ ticket.id }}" align="center">
+                    {% if ticket.active %}✓{% else %}x{% endif %}
+                </td>
+                <td id="payment_ticket_{{ ticket.id }}" align="center">
+                    {{ ticket.payment }}
+                </td>
+                <td id="updated_ticket_{{ ticket.id }}" align="center">
+                    {{ ticket.updated_at }}
+                </td>
+                <td id="edit_ticket_{{ ticket.id }}" align="center">
+                    <a href="{% url 'calendar:tickets-update' ticket.id %}">
+                        <button class="form-button m-1 btn btn-info" id="edit_ticket_button">
+                            {% trans 'Edit' %}
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}

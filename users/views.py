@@ -36,7 +36,7 @@ class UserUpdateView(PermissionRequiredMixin, UpdateView):
     }
 
     def get_success_url(self):
-        return reverse_lazy('users:update-form', kwargs={'pk': self.get_object().id})
+        return reverse_lazy('users:all')
 
 
 class UserProfileView(LoginRequiredMixin, ListView):
@@ -44,15 +44,6 @@ class UserProfileView(LoginRequiredMixin, ListView):
     template_name = 'users/profile.html'
     queryset = Event.objects.all()
     context_object_name = 'events'
-
-
-class UserLoginView(LoginView):
-    form_class = LoginForm
-    template_name = 'users/login.html'
-
-
-class UserLogoutView(LogoutView):
-    template_name = 'users/logged_out.html'
 
 
 @login_required()
@@ -70,6 +61,16 @@ def edit_profile(request):
     context = {
         'form': form,
         'update_form': True,
+        'cancel_url': reverse_lazy('users:profile')
     }
 
     return render(request, 'users/user_form.html', context)
+
+
+class UserLoginView(LoginView):
+    form_class = LoginForm
+    template_name = 'users/login.html'
+
+
+class UserLogoutView(LogoutView):
+    template_name = 'users/logged_out.html'

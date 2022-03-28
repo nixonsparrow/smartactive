@@ -19,6 +19,7 @@ class Type(models.Model):
     class Meta:
         verbose_name = _('Type')
         verbose_name_plural = _('Types')
+        ordering = ['-id']
 
     name = models.CharField(_('Name'), default='', null=False, blank=False, max_length=50)
 
@@ -30,6 +31,7 @@ class Ticket(TimestampedModel):
     class Meta:
         verbose_name = _('Ticket')
         verbose_name_plural = _('Tickets')
+        ordering = ['-id']
 
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL,
                              null=True, blank=True, related_name='tickets')
@@ -47,6 +49,7 @@ class EventSchema(models.Model):
     class Meta:
         verbose_name = _('Event schema')
         verbose_name_plural = _('Events schemas')
+        ordering = ['-id']
 
     WEEKDAYS = [
         (1, _('Monday')),
@@ -72,6 +75,7 @@ class Event(models.Model):
     class Meta:
         verbose_name = _('Event')
         verbose_name_plural = _('Events')
+        ordering = ['-id']
 
     title = models.CharField(_('Title'), default='', null=False, blank=False, max_length=50)
     type = models.ForeignKey(Type, verbose_name=_('Type'), on_delete=models.SET_NULL,
@@ -145,6 +149,9 @@ class Event(models.Model):
 
 
 class EventRegistration(TimestampedModel):
+    class Meta:
+        ordering = ['-id']
+
     DIRECTIONS = [
         (1, _('In')),
         (-1, _('Out')),

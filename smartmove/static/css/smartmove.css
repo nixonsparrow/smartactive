@@ -3,9 +3,19 @@
 }
 
 .content-section {
-  background: #ffffff;
-  padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 5px;
-  margin-bottom: 20px;
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.table-row-white {
+    background-color: white;
+    border-top: 1px solid black;
+}
+
+.table-row-lightgray {
+    background-color: lightgray;
+    border-top: 1px solid black;
 }

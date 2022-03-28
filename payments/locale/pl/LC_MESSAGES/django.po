@@ -42,7 +42,7 @@ msgstr "Wstępna liczba wejść"
 
 #: .\payments\models.py:19
 msgid "Type"
-msgstr "Typ"
+msgstr "Rodzaj"
 
 #: .\payments\models.py:21
 msgid "Ticket"

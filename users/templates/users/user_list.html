@@ -3,34 +3,46 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
-    <table width="100%">
-            <tr>
-                <th width="10%">
-                    Id
-                </th>
-                <th width="30%">
-                    {% trans 'Full name' %}
-                </th>
-                <th width="40%">
-                    {% trans 'E-mail address' %}
-                </th>
-                <th width="20%">
-                    {% trans 'Trainer' %}
-                </th>
-            </tr>
+    <table width="100%" id="users_table" class="table-no-border" align="center">
+        <tr align="center">
+            <th id="id_header" width="10%">
+                Id
+            </th>
+            <th id="full_name_header" width="30%">
+                {% trans 'Full name' %}
+            </th>
+            <th id="email_header" width="40%">
+                {% trans 'E-mail address' %}
+            </th>
+            <th id="trainer_header" width="15%">
+                {% trans 'Trainer' %}
+            </th>
+            <th id="edit_header" width="5%">
+                <!-- It's just a column for edit button -->
+            </th>
+        </tr>
         {% for user in users %}
-            <tr id="user_row_{{ user.i }}">
-                <td>
+        {% cycle 'table-row-lightgray' 'table-row-white' as table_row silent %}
+            <tr class="{{ table_row }}"
+                id="user_row_{{ user.id }}">
+                <td id="id_user_{{ user.id }}" align="center">
                     {{ user.id }}
                 </td>
-                <td>
+                <td id="full_name_user_{{ user.id }}" align="center">
                     {{ user.get_full_name }}
                 </td>
-                <td>
+                <td id="email_user_{{ user.id }}" align="center">
                     {{ user.email }}
                 </td>
-                <td>
-                    {{ user.trainer }}
+                <td id="trainer_user_{{ user.id }}" align="center">
+                    {% if user.trainer %}✓{% else %}x{% endif %}
+                </td>
+                <td id="edit_user_{{ user.id }}" align="center">
+                    <a href="{% url 'users:update-form' user.id %}">
+                        <button class="form-button m-1 btn btn-info" id="edit_profile_button">
+                            {% trans 'Edit' %}
+                        </button>
+                    </a>
                 </td>
             </tr>
         {% endfor %}

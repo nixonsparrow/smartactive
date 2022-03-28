@@ -37,7 +37,7 @@ class OverviewTestCase(TestCase):
 
     def test_calendar_overview_template_used(self):
         response = self.client.get(reverse('calendar:overview'))
-        self.assertTemplateUsed(response, 'events/overview.html')
+        self.assertTemplateUsed(response, 'events/payment_list.html')
         self.assertTemplateUsed(response, 'base.html')
 
     def test_calendar_overview_anonymous_user_see_page(self):

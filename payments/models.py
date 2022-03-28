@@ -10,6 +10,7 @@ class Payment(TimestampedModel):
     class Meta:
         verbose_name = _('Payment')
         verbose_name_plural = _('Payments')
+        ordering = ['-id']
 
     amount = models.DecimalField(_('Amount'), max_digits=10, decimal_places=2)
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL,

@@ -26,11 +26,11 @@ msgstr "Wydarzenia"
 
 #: .\events\models.py:20 .\events\models.py:38 .\events\models.py:77
 msgid "Type"
-msgstr "Typ"
+msgstr "Rodzaj"
 
 #: .\events\models.py:21
 msgid "Types"
-msgstr "Typy"
+msgstr "Rodzaje"
 
 #: .\events\models.py:23
 msgid "Name"

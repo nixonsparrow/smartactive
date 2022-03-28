@@ -1,14 +1,14 @@
 from django import forms
 
-from payments.models import Payment
+from payments.models import Ticket
 
 
-class PaymentForm(forms.ModelForm):
+class TicketForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
-        model = Payment
-        fields = ['user', 'event_type', 'amount', 'initial_usages']
+        model = Ticket
+        fields = ['user', 'event_type', 'usages_left', 'active']
