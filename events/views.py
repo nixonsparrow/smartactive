@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (CreateView, DetailView, ListView,
                                   TemplateView, UpdateView)
+from django.views.generic.edit import FormMixin
 
-from events.forms import TicketForm
+from events.forms import TicketForm, QuickRegisterForm
 from events.models import Event, Ticket
 
 
@@ -14,6 +16,23 @@ class Overview(ListView):
     model = Event
     context_object_name = 'events'
     ordering = ['date', 'time']
+
+    def post(self, request, *args, **kwargs):
+        direction = request.POST.get('direction')
+        event = Event.objects.get(id=request.POST.get('event'))
+        user = self.request.user
+
+        if direction == 'IN':
+            user.register_on_event(event)
+        elif direction == 'OUT':
+            user.unregister_from_event(event)
+        else:
+            pass
+
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('calendar:overview')
 
 
 class EventDetailView(DetailView):

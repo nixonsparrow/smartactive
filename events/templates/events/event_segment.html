@@ -1,7 +1,7 @@
 {% load events_tags %}
 {% load i18n %}
 <article class="media content-section">
-    <div class="media-body">
+    <div class="media-body" align="center">
         <div class="article-metadata">
             <table width=100%>
                 <tr>
@@ -9,7 +9,7 @@
                         <small class="text-muted">{{ event.type }}</small>
                     </th>
                     <th width=50%>
-                        <div align="right" style="margin-bottom: -30px">
+                        <div align="right">
                             <span class="text-muted">{{ event.date|date:'D | ' }}</span>{{ event.date|date:'d.m.Y' }} | {{ event.time }}
                         </div>
                     </th>
@@ -20,14 +20,26 @@
             <h4>{{ event.title }}</h4>
         </a>
         {{ event.short_description }}<br>
-        {% if user|can_register:event %}
-            <button class="form-button m-1 btn btn-success" type="submit" id="submit_button">
+
+        <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="event" value="{{ event.id }}">
+        <input type="hidden" name="user" value="{{ user.id }}">
+        {% if user in event.participants.all %}
+            <input type="hidden" name="direction" value="OUT">
+            <button class="form-button mt-1 btn btn-warning" type="submit" id="unregister_button">
+                {% trans 'Unregister' %}
+            </button>
+        {% elif user|can_register:event %}
+            <input type="hidden" name="direction" value="IN">
+            <button class="form-button mt-1 btn btn-success" type="submit" id="register_button">
                 {% trans 'Register' %}
             </button>
         {% else %}
-            <button class="form-button mt-1 btn btn-danger">
+            <span class="form-button mt-1 btn btn-danger">
                 {% trans 'Cannot register' %}
-            </button>
+            </span>
         {% endif %}
+        </form>
     </div>
 </article>

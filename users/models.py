@@ -37,3 +37,9 @@ class User(AbstractUser):
         ticket = self.get_ticket(event_type=event.type)
         if ticket:
             event.register_user(self)
+
+    def register_on_event(self, event):
+        self.register_on_event_with_ticket(event)
+
+    def unregister_from_event(self, event):
+        event.unregister_user(user=self)
