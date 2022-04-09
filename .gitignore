@@ -13,6 +13,3 @@ local.py
 local_settings.py
 venv/
 .env
-
-# Translations
-*.mo
