@@ -1,5 +1,7 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
+
+<article class="content-section">
     <form method="POST">
         <div class="form-group">
             {% csrf_token %}
@@ -25,3 +27,4 @@
             </div>
         </div>
     </form>
+</article>
