@@ -8,10 +8,22 @@ from payments.forms import PaymentForm
 from payments.models import Payment
 
 
-class Overview(PermissionRequiredMixin, ListView):
+class Overview(PermissionRequiredMixin, CreateView):
     model = Payment
+    form_class = PaymentForm
     permission_required = ('admin',)
-    context_object_name = 'payments'
+    template_name = 'payments/payment_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({'payments': Payment.objects.all()})
+        return context
+
+    def get_success_message(self, cleaned_data):
+        return f'{self.object} {_("has been created successfully.")}'
+
+    def get_success_url(self):
+        return reverse('payments:all')
 
 
 class PaymentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):

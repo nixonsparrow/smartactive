@@ -2,30 +2,7 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <form method="POST">
-        <div class="form-group">
-            {% csrf_token %}
-            <fieldset class="border-bottom mb-2">
-                <legend class="border-bottom mb-2">{% trans 'Payment form' %}</legend>
-                    {{ form|crispy }}
-            </fieldset>
-            <div class="d-flex">
-                <button class="form-button m-1 btn btn-success" type="submit" id="submit_button">
-                    {% if update_form %}{% trans 'Update' %}{% else %}{% trans 'Add' %}{% endif %}
-                </button>
 
-                <button class="form-button m-1 btn btn-warning" type="reset" id="reset_button"
-                        onclick="return confirm('You are going to reset form values. Proceed?');">
-                    {% trans 'Reset' %}
-                </button>
-
-                <a href="{% url 'payments:all' %}">
-                    <button class="form-button m-1 btn btn-danger" type="button" id="cancel_button">
-                        {% trans 'Cancel' %}
-                    </button>
-                </a>
-            </div>
-        </div>
-    </form>
+    {% include 'payments/payment_form_form.html' %}
 
 {% endblock content %}

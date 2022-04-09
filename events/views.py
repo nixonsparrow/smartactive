@@ -7,7 +7,7 @@ from django.views.generic import (CreateView, DetailView, ListView,
                                   TemplateView, UpdateView)
 from django.views.generic.edit import FormMixin
 
-from events.forms import TicketForm, QuickRegisterForm
+from events.forms import TicketForm, QuickRegisterForm, TicketUpdateForm
 from events.models import Event, Ticket
 
 
@@ -39,10 +39,22 @@ class EventDetailView(DetailView):
     model = Event
 
 
-class TicketListView(PermissionRequiredMixin, ListView):
+class TicketListView(PermissionRequiredMixin, CreateView):
     model = Ticket
+    form_class = TicketForm
     permission_required = ('admin',)
-    context_object_name = 'tickets'
+    template_name = 'events/ticket_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({'tickets': Ticket.objects.all()})
+        return context
+
+    def get_success_message(self, cleaned_data):
+        return f'{self.object} {_("has been created successfully.")}'
+
+    def get_success_url(self):
+        return reverse('calendar:tickets-all')
 
 
 class TicketCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -59,7 +71,7 @@ class TicketCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
 
 class TicketUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Ticket
-    form_class = TicketForm
+    form_class = TicketUpdateForm
     permission_required = ('admin',)
     extra_context = {'update_form': True}
 

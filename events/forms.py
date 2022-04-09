@@ -11,7 +11,13 @@ class TicketForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ['user', 'event_type', 'usages_left', 'active']
+        fields = ['user', 'event_type', 'usages_left']
+
+
+class TicketUpdateForm(TicketForm):
+    class Meta:
+        model = Ticket
+        fields = TicketForm.Meta.fields + ['active']
 
 
 class QuickRegisterForm(forms.Form):
