@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-27 12:33+0200\n"
+"POT-Creation-Date: 2022-04-09 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,34 @@ msgstr "Polski"
 msgid "English"
 msgstr "Angielski"
 
+#: .\smartmove\templates\base.html:58
+msgid "Schedule"
+msgstr "Kalendarz"
+
+#: .\smartmove\templates\base.html:64
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: .\smartmove\templates\base.html:69
+msgid "Tickets"
+msgstr "Bilety"
+
+#: .\smartmove\templates\base.html:74
+msgid "Payments"
+msgstr "Płatności"
+
+#: .\smartmove\templates\base.html:81
+msgid "Profile"
+msgstr "Profil"
+
+#: .\smartmove\templates\base.html:86
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: .\smartmove\templates\base.html:92
+msgid "Log in"
+msgstr "Zaloguj"
+
 #~ msgid "created at"
 #~ msgstr "utworzono"
 
@@ -37,12 +65,6 @@ msgstr "Angielski"
 #~ msgid "Ticket"
 #~ msgstr "Bilet"
 
-#~ msgid "Tickets"
-#~ msgstr "Bilety"
-
-#~ msgid "User"
-#~ msgstr "Użytkownik"
-
 #~ msgid "Active"
 #~ msgstr "Aktywny"
 
@@ -51,9 +73,6 @@ msgstr "Angielski"
 
 #~ msgid "Payment"
 #~ msgstr "Płatność"
-
-#~ msgid "Payments"
-#~ msgstr "Płatności"
 
 #~ msgid "Amount"
 #~ msgstr "Kwota"

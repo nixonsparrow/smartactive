@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-27 12:33+0200\n"
+"POT-Creation-Date: 2022-04-09 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,23 +28,23 @@ msgstr "Płatność"
 msgid "Payments"
 msgstr "Płatności"
 
-#: .\payments\models.py:14
+#: .\payments\models.py:15 .\payments\templates\payments\payment_list.html:15
 msgid "Amount"
 msgstr "Kwota"
 
-#: .\payments\models.py:15
+#: .\payments\models.py:16 .\payments\templates\payments\payment_list.html:12
 msgid "User"
 msgstr "Użytkownik"
 
-#: .\payments\models.py:17
+#: .\payments\models.py:18 .\payments\templates\payments\payment_list.html:18
 msgid "Initial usages"
 msgstr "Wstępna liczba wejść"
 
-#: .\payments\models.py:19
+#: .\payments\models.py:20 .\payments\templates\payments\payment_list.html:21
 msgid "Type"
 msgstr "Rodzaj"
 
-#: .\payments\models.py:21
+#: .\payments\models.py:22 .\payments\templates\payments\payment_list.html:24
 msgid "Ticket"
 msgstr "Bilet"
 
@@ -67,3 +67,11 @@ msgstr "Reset"
 #: .\payments\templates\payments\payment_form.html:24
 msgid "Cancel"
 msgstr "Anuluj"
+
+#: .\payments\templates\payments\payment_list.html:27
+msgid "Last updated"
+msgstr "Zmodyfkowano"
+
+#: .\payments\templates\payments\payment_list.html:61
+msgid "Edit"
+msgstr "Zmień"

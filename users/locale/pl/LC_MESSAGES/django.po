@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-27 12:33+0200\n"
+"POT-Creation-Date: 2022-04-09 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,13 +36,17 @@ msgstr "Nazwisko"
 msgid "Email address"
 msgstr "Adres e-mail"
 
-#: .\users\models.py:11
+#: .\users\models.py:11 .\users\templates\users\user_list.html:18
 msgid "Trainer"
 msgstr "Trener"
 
 #: .\users\templates\users\logged_out.html:6
 msgid "Logged out successfully"
 msgstr "Wylogowano pomyślnie"
+
+#: .\users\templates\users\profile.html:11
+msgid "Edit profile"
+msgstr "Edytuj profil"
 
 #: .\users\templates\users\user_form.html:10
 msgid "User form"
@@ -68,6 +72,22 @@ msgstr "Resetuj"
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: .\users\views.py:58
+#: .\users\templates\users\user_list.html:12
+#, fuzzy
+#| msgid "First name"
+msgid "Full name"
+msgstr "Imię"
+
+#: .\users\templates\users\user_list.html:15
+#, fuzzy
+#| msgid "Email address"
+msgid "E-mail address"
+msgstr "Adres e-mail"
+
+#: .\users\templates\users\user_list.html:43
+msgid "Edit"
+msgstr "Zmień"
+
+#: .\users\views.py:55
 msgid "Your profile has been updated."
 msgstr "Twój profil został zaktualizowany."
