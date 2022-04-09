@@ -9,8 +9,11 @@ from events.forms import TicketForm
 from events.models import Event, Ticket
 
 
-class Overview(TemplateView):
+class Overview(ListView):
     template_name = 'events/overview.html'
+    model = Event
+    context_object_name = 'events'
+    ordering = ['date', 'time']
 
 
 class EventDetailView(DetailView):

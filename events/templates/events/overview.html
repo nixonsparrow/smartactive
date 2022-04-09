@@ -3,4 +3,7 @@
 <div class="content-section">
     KALENDARZ :D
 </div>
+{% for event in events %}
+    {% include 'events/event_segment.html' %}
+{% endfor %}
 {% endblock content %}

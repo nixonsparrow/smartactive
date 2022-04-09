@@ -16,6 +16,20 @@ class User(AbstractUser):
     def __str__(self):
         return self.get_full_name()
 
+    # TODO make more complex checking here
+    def can_register(self, event):
+        if self in event.participants.all():
+            return False
+        elif event.register_time_passed():
+            return False
+        elif event.is_full():
+            return False
+        elif not self.get_ticket(event.type):
+            return False
+
+        else:
+            return True
+
     def get_ticket(self, event_type):
         return self.tickets.filter(event_type=event_type, usages_left__gt=0).first()
 

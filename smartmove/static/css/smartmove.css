@@ -19,3 +19,12 @@
     background-color: lightgray;
     border-top: 1px solid black;
 }
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #444444;
+  text-decoration: none;
+}

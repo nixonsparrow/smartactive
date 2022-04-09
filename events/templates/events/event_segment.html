@@ -1,0 +1,33 @@
+{% load events_tags %}
+{% load i18n %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <table width=100%>
+                <tr>
+                    <th width=50%>
+                        <small class="text-muted">{{ event.type }}</small>
+                    </th>
+                    <th width=50%>
+                        <div align="right" style="margin-bottom: -30px">
+                            <span class="text-muted">{{ event.date|date:'D | ' }}</span>{{ event.date|date:'d.m.Y' }} | {{ event.time }}
+                        </div>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <a class="article-title" href="{% url 'calendar:event-detail' event.id %}">
+            <h4>{{ event.title }}</h4>
+        </a>
+        {{ event.short_description }}<br>
+        {% if user|can_register:event %}
+            <button class="form-button m-1 btn btn-success" type="submit" id="submit_button">
+                {% trans 'Register' %}
+            </button>
+        {% else %}
+            <button class="form-button mt-1 btn btn-danger">
+                {% trans 'Cannot register' %}
+            </button>
+        {% endif %}
+    </div>
+</article>

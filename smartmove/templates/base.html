@@ -64,6 +64,16 @@
                             {% trans 'Users' %}
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'calendar:tickets-all' %}">
+                            {% trans 'Tickets' %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'payments:all' %}">
+                            {% trans 'Payments' %}
+                        </a>
+                    </li>
                 {% endif %}
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">

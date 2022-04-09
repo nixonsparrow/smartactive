@@ -80,8 +80,10 @@ class Event(models.Model):
     title = models.CharField(_('Title'), default='', null=False, blank=False, max_length=50)
     type = models.ForeignKey(Type, verbose_name=_('Type'), on_delete=models.SET_NULL,
                              default=None, null=True, blank=True)
-    time = models.TimeField(_('Time'), default=datetime.time(hour=18, minute=00), null=False)
+    short_description = models.CharField(_('Short description'), default='', null=True, blank=True, max_length=256)
+    description = models.TextField(_('Description'), default='', null=True, blank=True)
     date = models.DateField(_('Date'), default=tomorrow)
+    time = models.TimeField(_('Time'), default=datetime.time(hour=18, minute=00), null=False)
     trainer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
                                 verbose_name=_('Trainer'), related_name='events_as_trainer')
     participants = models.ManyToManyField(User, verbose_name=_('Participants'), blank=True,
@@ -138,11 +140,14 @@ class Event(models.Model):
             raise NoValidTicketFound(f'There is no valid ticket for user {user} and event {self}! '
                                      f'Cannot resolve unregister.')
 
+    def is_full(self):
+        return self.participants_limit <= self.participants.count()
+
     def register_time_passed(self):
-        return datetime.datetime.now() > datetime.datetime.combine(self.date, self.time) - datetime.timedelta(minutes=self.register_time_limit)
+        return datetime.datetime.now() > (datetime.datetime.combine(self.date, self.time) - datetime.timedelta(minutes=self.register_time_limit))
 
     def unregister_time_passed(self):
-        return datetime.datetime.now() > datetime.datetime.combine(self.date, self.time) - datetime.timedelta(minutes=self.unregister_time_limit)
+        return datetime.datetime.now() > (datetime.datetime.combine(self.date, self.time) - datetime.timedelta(minutes=self.unregister_time_limit))
 
     def __str__(self):
         return f'{self.title} ({self.date.strftime("%d.%m.%Y")} | {self.time})'
