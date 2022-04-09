@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-09 18:14+0200\n"
+"POT-Creation-Date: 2022-04-09 21:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,14 +73,10 @@ msgid "Cancel"
 msgstr "Anuluj"
 
 #: .\users\templates\users\user_list.html:12
-#, fuzzy
-#| msgid "First name"
 msgid "Full name"
-msgstr "Imię"
+msgstr "Imię i nazwisko"
 
 #: .\users\templates\users\user_list.html:15
-#, fuzzy
-#| msgid "Email address"
 msgid "E-mail address"
 msgstr "Adres e-mail"
 

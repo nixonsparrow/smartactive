@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-09 18:14+0200\n"
+"POT-Creation-Date: 2022-04-09 21:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgid "Events"
 msgstr "Wydarzenia"
 
 #: .\events\models.py:20 .\events\models.py:40 .\events\models.py:81
-#: .\events\templates\events\ticket_list.html:18
+#: .\events\templates\events\ticket_list.html:35
 msgid "Type"
 msgstr "Rodzaj"
 
@@ -46,15 +46,15 @@ msgid "Tickets"
 msgstr "Bilety"
 
 #: .\events\models.py:36 .\events\models.py:165
-#: .\events\templates\events\ticket_list.html:12
+#: .\events\templates\events\ticket_list.html:29
 msgid "User"
 msgstr "Użytkownik"
 
-#: .\events\models.py:38 .\events\templates\events\ticket_list.html:21
+#: .\events\models.py:38 .\events\templates\events\ticket_list.html:38
 msgid "Active"
 msgstr "Aktywny"
 
-#: .\events\models.py:42 .\events\templates\events\ticket_list.html:15
+#: .\events\models.py:42 .\events\templates\events\ticket_list.html:32
 msgid "Usages left"
 msgstr "Pozostałe wejścia"
 
@@ -175,49 +175,53 @@ msgid "Registering"
 msgstr "Rejestracja"
 
 #: .\events\templates\events\event_segment.html:31
-#, fuzzy
-#| msgid "Registering"
 msgid "Unregister"
-msgstr "Rejestracja"
+msgstr "Wypisz"
 
 #: .\events\templates\events\event_segment.html:36
-#, fuzzy
-#| msgid "Registering"
 msgid "Register"
-msgstr "Rejestracja"
+msgstr "Zapisz"
 
 #: .\events\templates\events\event_segment.html:40
 msgid "Cannot register"
 msgstr "Brak możliwości rejestracji"
 
-#: .\events\templates\events\ticket_form.html:9
+#: .\events\templates\events\ticket_form_form.html:7
 msgid "Ticket form"
 msgstr "Formularz biletu"
 
-#: .\events\templates\events\ticket_form.html:14
+#: .\events\templates\events\ticket_form_form.html:12
 msgid "Update"
 msgstr "Aktualizuj"
 
-#: .\events\templates\events\ticket_form.html:14
+#: .\events\templates\events\ticket_form_form.html:12
 msgid "Add"
 msgstr "Dodaj"
 
-#: .\events\templates\events\ticket_form.html:19
+#: .\events\templates\events\ticket_form_form.html:17
 msgid "Reset"
 msgstr "Reset"
 
-#: .\events\templates\events\ticket_form.html:24
+#: .\events\templates\events\ticket_form_form.html:22
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: .\events\templates\events\ticket_list.html:24
+#: .\events\templates\events\ticket_list.html:8
+msgid "TICKETS"
+msgstr "BILETY"
+
+#: .\events\templates\events\ticket_list.html:11
+msgid "FORM"
+msgstr "FORMULARZ"
+
+#: .\events\templates\events\ticket_list.html:41
 msgid "Payment"
 msgstr "Płatność"
 
-#: .\events\templates\events\ticket_list.html:27
+#: .\events\templates\events\ticket_list.html:44
 msgid "Last updated"
 msgstr "Zmodyfikowano"
 
-#: .\events\templates\events\ticket_list.html:61
+#: .\events\templates\events\ticket_list.html:78
 msgid "Edit"
 msgstr "Zmień"

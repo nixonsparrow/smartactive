@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-09 18:14+0200\n"
+"POT-Creation-Date: 2022-04-09 21:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,50 +28,58 @@ msgstr "Płatność"
 msgid "Payments"
 msgstr "Płatności"
 
-#: .\payments\models.py:15 .\payments\templates\payments\payment_list.html:15
+#: .\payments\models.py:15 .\payments\templates\payments\payment_list.html:32
 msgid "Amount"
 msgstr "Kwota"
 
-#: .\payments\models.py:16 .\payments\templates\payments\payment_list.html:12
+#: .\payments\models.py:16 .\payments\templates\payments\payment_list.html:29
 msgid "User"
 msgstr "Użytkownik"
 
-#: .\payments\models.py:18 .\payments\templates\payments\payment_list.html:18
+#: .\payments\models.py:18 .\payments\templates\payments\payment_list.html:35
 msgid "Initial usages"
 msgstr "Wstępna liczba wejść"
 
-#: .\payments\models.py:20 .\payments\templates\payments\payment_list.html:21
+#: .\payments\models.py:20 .\payments\templates\payments\payment_list.html:38
 msgid "Type"
 msgstr "Rodzaj"
 
-#: .\payments\models.py:22 .\payments\templates\payments\payment_list.html:24
+#: .\payments\models.py:22 .\payments\templates\payments\payment_list.html:41
 msgid "Ticket"
 msgstr "Bilet"
 
-#: .\payments\templates\payments\payment_form.html:9
+#: .\payments\templates\payments\payment_form_form.html:8
 msgid "Payment form"
 msgstr "Formularz płatności"
 
-#: .\payments\templates\payments\payment_form.html:14
+#: .\payments\templates\payments\payment_form_form.html:13
 msgid "Update"
 msgstr "Aktualizuj"
 
-#: .\payments\templates\payments\payment_form.html:14
+#: .\payments\templates\payments\payment_form_form.html:13
 msgid "Add"
 msgstr "Dodaj"
 
-#: .\payments\templates\payments\payment_form.html:19
+#: .\payments\templates\payments\payment_form_form.html:18
 msgid "Reset"
 msgstr "Reset"
 
-#: .\payments\templates\payments\payment_form.html:24
+#: .\payments\templates\payments\payment_form_form.html:23
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: .\payments\templates\payments\payment_list.html:27
+#: .\payments\templates\payments\payment_list.html:8
+msgid "PAYMENTS"
+msgstr "PŁATNOŚCI"
+
+#: .\payments\templates\payments\payment_list.html:11
+msgid "FORM"
+msgstr "FORMULARZ"
+
+#: .\payments\templates\payments\payment_list.html:44
 msgid "Last updated"
 msgstr "Zmodyfkowano"
 
-#: .\payments\templates\payments\payment_list.html:61
+#: .\payments\templates\payments\payment_list.html:78
 msgid "Edit"
 msgstr "Zmień"

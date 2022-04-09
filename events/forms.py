@@ -18,7 +18,3 @@ class TicketUpdateForm(TicketForm):
     class Meta:
         model = Ticket
         fields = TicketForm.Meta.fields + ['active']
-
-
-class QuickRegisterForm(forms.Form):
-    pass

@@ -3,11 +3,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import (CreateView, DetailView, ListView,
-                                  TemplateView, UpdateView)
-from django.views.generic.edit import FormMixin
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from events.forms import TicketForm, QuickRegisterForm, TicketUpdateForm
+from events.forms import TicketForm, TicketUpdateForm
 from events.models import Event, Ticket
 
 
