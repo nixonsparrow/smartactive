@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from events.forms import TicketForm, TicketUpdateForm, EventForm
+from events.forms import EventForm, TicketForm, TicketUpdateForm
 from events.models import Event, Ticket
 
 
