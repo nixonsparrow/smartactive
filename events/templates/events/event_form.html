@@ -2,8 +2,8 @@
 {% load i18n %}
 {% block content %}
 
-    {% trans 'Payment form' as form_title %}
-    {% url 'payments:all' as cancel_url %}
+    {% trans 'Event form' as form_title %}
+    {% url 'calendar:events-all' as cancel_url %}
 
     {% include 'simple_form.html' %}
 

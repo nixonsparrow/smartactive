@@ -127,18 +127,25 @@ class Event(models.Model):
 
         if not ticket:
             ticket = user.get_ticket(self.type)
+            if not ticket:
+                ticket = user.get_empty_ticket(self.type)
 
         if ticket:
-            self.participants.remove(user)
             ticket.usages_left += 1
             ticket.save()
-            EventRegistration.objects.create(
-                event=self, user=user, ticket=ticket, direction=-1,
-                ticket_usages_left_after_register=ticket.usages_left
-            )
         else:
-            raise NoValidTicketFound(f'There is no valid ticket for user {user} and event {self}! '
-                                     f'Cannot resolve unregister.')
+            ticket = Ticket.objects.create(
+                user=user, event_type=self.type, usages_left=1
+            )
+
+        EventRegistration.objects.create(
+            event=self, user=user, ticket=ticket, direction=-1,
+            ticket_usages_left_after_register=ticket.usages_left
+        )
+        self.participants.remove(user)
+
+        # raise NoValidTicketFound(f'There is no valid ticket for user {user} and event {self}! '
+        #                          f'Cannot resolve unregister.')
 
     def is_full(self):
         return self.participants_limit <= self.participants.count()

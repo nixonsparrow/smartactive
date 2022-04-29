@@ -13,7 +13,8 @@
 </div>
 
 <div id="Form" class="tabcontent" style="display: none;">
-    {% include 'payments/payment_form_form.html' %}
+    {% trans 'Payment form' as form_title %}
+    {% include 'simple_form.html' %}
 </div>
 
 <div id="Payments" class="tabcontent">
@@ -35,10 +36,10 @@
                 <th id="event_type_header" width="20%">
                     {% trans 'Type' %}
                 </th>
-                <th id="ticket_header" width="25%">
+                <th id="ticket_header" class="hidden-mobile" width="25%">
                     {% trans 'Ticket' %}
                 </th>
-                <th id="updated_header" width="15%">
+                <th id="updated_header" class="hidden-mobile" width="15%">
                     {% trans 'Last updated' %}
                 </th>
                 <th id="edit_header" width="5%">
@@ -64,10 +65,10 @@
                     <td id="event_type_payment_{{ payment.id }}" align="center">
                         {{ payment.event_type }}
                     </td>
-                    <td id="ticket_payment_{{ payment.id }}" align="center">
+                    <td id="ticket_payment_{{ payment.id }}" class="hidden-mobile" align="center">
                         {{ payment.ticket }}
                     </td>
-                    <td id="updated_payment_{{ payment.id }}" align="center">
+                    <td id="updated_payment_{{ payment.id }}" class="hidden-mobile" align="center">
                         {{ payment.updated_at }}
                     </td>
                     <td id="edit_payment_{{ payment.id }}" align="center">

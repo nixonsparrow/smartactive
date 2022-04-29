@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from events.forms import TicketForm, TicketUpdateForm
+from events.forms import TicketForm, TicketUpdateForm, EventForm
 from events.models import Event, Ticket
 
 
@@ -35,6 +35,49 @@ class Overview(ListView):
 
 class EventDetailView(DetailView):
     model = Event
+
+
+class EventListView(PermissionRequiredMixin, CreateView):
+    model = Event
+    form_class = EventForm
+    permission_required = ('admin',)
+    template_name = 'events/event_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({'events': Event.objects.all()})
+        return context
+
+    def get_success_message(self, cleaned_data):
+        return f'{self.object} {_("has been created successfully.")}'
+
+    def get_success_url(self):
+        return reverse('calendar:events-all')
+
+
+class EventCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Event
+    form_class = EventForm
+    permission_required = ('admin',)
+
+    def get_success_message(self, cleaned_data):
+        return f'{self.object} {_("has been created successfully.")}'
+
+    def get_success_url(self):
+        return reverse('calendar:events-all')
+
+
+class EventUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Event
+    form_class = EventForm
+    permission_required = ('admin',)
+    extra_context = {'update_form': True}
+
+    def get_success_message(self, cleaned_data):
+        return f'{self.object} {_("has been edited successfully.")}'
+
+    def get_success_url(self):
+        return reverse('calendar:events-all')
 
 
 class TicketListView(PermissionRequiredMixin, CreateView):

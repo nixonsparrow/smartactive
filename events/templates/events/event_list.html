@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="tab">
+    <div align="center" class="tablinks col-md-6 active" onclick="openTab(event, 'Events')">
+        {% trans 'EVENTS' %}
+    </div>
+    <div align="center" class="tablinks col-md-6" onclick="openTab(event, 'Form')">
+        {% trans 'FORM' %}
+    </div>
+</div>
+
+<div id="Form" class="tabcontent" style="display: none;">
+    {% trans 'Event form' as form_title %}
+    {% include 'simple_form.html' %}
+</div>
+
+<div id="Events" class="tabcontent">
+    <div class="content-section">
+        <table width="100%" id="payments_table" class="table-no-border" align="center">
+            <tr align="center">
+                <th id="title_header" width="15%">
+                    {% trans 'Title' %}
+                </th>
+                <th id="type_header" class="hidden-mobile" width="10%">
+                    {% trans 'Type' %}
+                </th>
+                <th id="time_header" width="5%">
+                    {% trans 'Time' %}
+                </th>
+                <th id="date_header" width="10%">
+                    {% trans 'Date' %}
+                </th>
+                <th id="trainer_header" class="hidden-mobile" width="15%">
+                    {% trans 'Trainer' %}
+                </th>
+                <th id="participants_header" width="5%">
+                    {% trans 'Participants' %}
+                </th>
+                <th id="schema_header" class="hidden-mobile" width="5%">
+                    {% trans 'Schema' %}
+                </th>
+                <th id="edit_header" width="5%">
+                    <!-- It's just a column for edit button -->
+                </th>
+            </tr>
+            {% for event in events %}
+            {% cycle 'table-row-lightgray' 'table-row-white' as table_row silent %}
+                <tr class="{{ table_row }}" style="overflow-x:auto;"
+                    id="event_row_{{ event.id }}">
+                    <td id="title_event_{{ event.id }}" align="center">
+                        {{ event.title }}
+                    </td>
+                    <td id="type_event_{{ event.id }}" class="hidden-mobile" align="center">
+                        {{ event.type }}
+                    </td>
+                    <td id="time_event_{{ event.id }}" align="center">
+                        {{ event.time }}
+                    </td>
+                    <td id="date_event_{{ event.id }}" class="hidden-mobile" align="center">
+                        {{ event.date }}
+                    </td>
+                    <td id="date_mobile_event_{{ event.id }}" class="only-mobile" align="center">
+                        {{ event.date|date:"d.m" }}
+                    </td>
+                    <td id="trainer_event_{{ event.id }}" class="hidden-mobile" align="center">
+                        {{ event.trainer }}
+                    </td>
+                    <td id="participants_event_{{ event.id }}" align="center">
+                        {{ event.participants.all.count }}
+                    </td>
+                    <td id="schema_event_{{ event.id }}" class="hidden-mobile" align="center">
+                        {% if event.schema %}✓{% else %}x{% endif %}
+                    </td>
+                    <td id="edit_event_{{ event.id }}" align="center">
+                        <a href="{% url 'calendar:events-update' event.id %}">
+                            <button class="form-button m-1 btn btn-info" id="edit_event_button">
+                                {% trans 'Edit' %}
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock content %}
+{% block extra_js %}
+
+    <script>
+        function openTab(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+    </script>
+{% endblock extra_js %}

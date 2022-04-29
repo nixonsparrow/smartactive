@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% load crispy_forms_tags %}
 {% block content %}
 
-    {% include 'events/ticket_form_form.html' %}
+    {% trans 'Ticket form' as form_title %}
+    {% url 'calendar:tickets-all' as cancel_url %}
+
+    {% include 'simple_form.html' %}
 
 {% endblock content %}

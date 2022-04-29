@@ -33,6 +33,9 @@ class User(AbstractUser):
     def get_ticket(self, event_type):
         return self.tickets.filter(event_type=event_type, usages_left__gt=0).first()
 
+    def get_empty_ticket(self, event_type):
+        return self.tickets.filter(event_type=event_type, usages_left=0).first()
+
     def register_on_event_with_ticket(self, event):
         ticket = self.get_ticket(event_type=event.type)
         if ticket:

@@ -13,7 +13,8 @@
 </div>
 
 <div id="Form" class="tabcontent" style="display: none;">
-    {% include 'events/ticket_form_form.html' %}
+    {% trans 'Ticket form' as form_title %}
+    {% include 'simple_form.html' %}
 </div>
 
 <div id="Tickets" class="tabcontent">
@@ -35,10 +36,10 @@
                 <th id="active_header" width="10%">
                     {% trans 'Active' %}
                 </th>
-                <th id="payment_header" width="25%">
+                <th id="payment_header" class="hidden-mobile" width="25%">
                     {% trans 'Payment' %}
                 </th>
-                <th id="updated_header" width="15%">
+                <th id="updated_header" class="hidden-mobile" width="15%">
                     {% trans 'Last updated' %}
                 </th>
                 <th id="edit_header" width="5%">
@@ -64,10 +65,10 @@
                     <td id="active_ticket_{{ ticket.id }}" align="center">
                         {% if ticket.active %}✓{% else %}x{% endif %}
                     </td>
-                    <td id="payment_ticket_{{ ticket.id }}" align="center">
+                    <td id="payment_ticket_{{ ticket.id }}" class="hidden-mobile" align="center">
                         {{ ticket.payment }}
                     </td>
-                    <td id="updated_ticket_{{ ticket.id }}" align="center">
+                    <td id="updated_ticket_{{ ticket.id }}" class="hidden-mobile" align="center">
                         {{ ticket.updated_at }}
                     </td>
                     <td id="edit_ticket_{{ ticket.id }}" align="center">

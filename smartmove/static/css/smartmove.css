@@ -58,3 +58,54 @@ a.article-title:hover {
 .tab div.active {
     background-color: #ccc;
 }
+
+/* Classes for mobile including/excluding */
+@media (max-width: 767px) {
+    .hidden-mobile {
+        display: none;
+    }
+}
+
+@media (min-width: 767px) {
+    .only-mobile {
+        display: none;
+    }
+}
+
+/* Buttons */
+
+.btn-info {
+    background-color: pink;
+    border-color: black;
+    color: black;
+}
+
+.btn-info:hover {
+    background-color: black;
+    border-color: pink;
+    color: pink;
+}
+
+.btn-success {
+
+}
+
+.btn-success:hover {
+
+}
+
+.btn-warning {
+
+}
+
+.btn-warning:hover {
+
+}
+
+.btn-danger {
+
+}
+
+.btn-danger:hover {
+
+}

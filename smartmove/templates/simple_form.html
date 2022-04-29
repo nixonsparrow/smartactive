@@ -6,7 +6,7 @@
         <div class="form-group">
             {% csrf_token %}
             <fieldset class="border-bottom mb-2">
-                <legend class="border-bottom mb-2">{% trans 'Payment form' %}</legend>
+                {% if form_title %}<legend class="border-bottom mb-2">{{ form_title }}</legend>{% endif %}
                     {{ form|crispy }}
             </fieldset>
             <div class="d-flex">
@@ -19,7 +19,7 @@
                     {% trans 'Reset' %}
                 </button>
 
-                <a href="{% url 'payments:all' %}">
+                <a href="{{ cancel_url }}">
                     <button class="form-button m-1 btn btn-danger" type="button" id="cancel_button">
                         {% trans 'Cancel' %}
                     </button>

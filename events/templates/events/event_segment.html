@@ -25,7 +25,12 @@
         {% csrf_token %}
         <input type="hidden" name="event" value="{{ event.id }}">
         <input type="hidden" name="user" value="{{ user.id }}">
-        {% if user in event.participants.all %}
+        {% if event.register_time_passed %}
+            <input type="hidden" name="direction" value="OUT">
+            <button class="form-button mt-1 btn btn-secondary" type="button" id="past_event_button">
+                {% trans 'Past event' %}
+            </button>
+        {% elif user in event.participants.all %}
             <input type="hidden" name="direction" value="OUT">
             <button class="form-button mt-1 btn btn-warning" type="submit" id="unregister_button">
                 {% trans 'Unregister' %}
