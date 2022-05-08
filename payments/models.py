@@ -1,9 +1,9 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from events.models import Ticket, Type
 from manager.models import TimestampedModel
-from users.models import User
 
 
 class Payment(TimestampedModel):
@@ -13,7 +13,7 @@ class Payment(TimestampedModel):
         ordering = ['-id']
 
     amount = models.DecimalField(_('Amount'), max_digits=10, decimal_places=2)
-    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.SET_NULL,
                              related_name='payments', null=True, blank=True)
     initial_usages = models.PositiveSmallIntegerField(_('Initial usages'), default=1, null=False, blank=False)
 

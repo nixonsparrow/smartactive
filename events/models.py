@@ -1,6 +1,7 @@
 import datetime
 
 from dateutil.utils import today
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -8,7 +9,6 @@ from events.exceptions import (NoValidTicketFound, ParticipantsFull,
                                RegisterTimePassed, UnregisterTimePassed,
                                UserInParticipants, UserNotInParticipants)
 from manager.models import TimestampedModel
-from users.models import User
 
 
 def tomorrow():
@@ -33,7 +33,7 @@ class Ticket(TimestampedModel):
         verbose_name_plural = _('Tickets')
         ordering = ['-id']
 
-    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.SET_NULL,
                              null=True, blank=True, related_name='tickets')
     active = models.BooleanField(verbose_name=_('Active'), default=True)
 
@@ -84,9 +84,9 @@ class Event(models.Model):
     description = models.TextField(_('Description'), default='', null=True, blank=True)
     date = models.DateField(_('Date'), default=tomorrow)
     time = models.TimeField(_('Time'), default=datetime.time(hour=18, minute=00), null=False)
-    trainer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
+    trainer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
                                 verbose_name=_('Trainer'), related_name='events_as_trainer')
-    participants = models.ManyToManyField(User, verbose_name=_('Participants'), blank=True,
+    participants = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name=_('Participants'), blank=True,
                                           related_name='events_as_participant')
     schema = models.ForeignKey(EventSchema, on_delete=models.SET_NULL, null=True, blank=True,
                                verbose_name=_('Schema'), related_name='events')
@@ -169,7 +169,7 @@ class EventRegistration(TimestampedModel):
         (-1, _('Out')),
     ]
 
-    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL, null=True,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.SET_NULL, null=True,
                              related_name='event_registrations')
     ticket = models.ForeignKey(Ticket, verbose_name=_('Ticket'), on_delete=models.SET_NULL, null=True)
     ticket_usages_left_after_register = models.SmallIntegerField(_('Ticket\'s usages left after registering'))

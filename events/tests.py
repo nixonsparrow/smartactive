@@ -9,8 +9,11 @@ from events.exceptions import (NoValidTicketFound, ParticipantsFull,
                                RegisterTimePassed, UnregisterTimePassed,
                                UserInParticipants, UserNotInParticipants)
 from events.models import Event, EventRegistration, Ticket, Type
-from users.models import User
+from django.contrib.auth import get_user_model
 from users.tests import PASSWORD, TEST_SUPERUSER, TEST_USER
+
+
+User = get_user_model()
 
 TEST_TYPE = {
     'name': 'Test Type'
