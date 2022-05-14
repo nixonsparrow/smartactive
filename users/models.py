@@ -6,17 +6,17 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, email, username=None, password=None):
 
-        user = self.model(email=email, is_superuser=False)
+        user = self.model(username=username, email=email, is_superuser=False)
 
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password=None):
+    def create_superuser(self, email, username=None, password=None):
 
-        user = self.model(email=email, is_superuser=True)
+        user = self.model(username=username, email=email, is_superuser=True)
 
         user.set_password(password)
         user.save()

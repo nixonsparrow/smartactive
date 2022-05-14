@@ -1,9 +1,11 @@
 from django.db import models
 
 from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+from manager import blocks
 
 
 class HomePage(Page):
@@ -29,15 +31,31 @@ class HomePage(Page):
         related_name='+'
     )
 
+    content = StreamField(
+        [
+            ('title_and_text', blocks.TitleAndTextBlock()),
+            ('full_richtext', blocks.RichTextBlock()),
+            ('simple_richtext', blocks.SimpleRichTextBlock()),
+            ('cards', blocks.CardBlock()),
+            ('cta', blocks.CTABlock()),
+        ],
+        null=True,
+        blank=True,
+    )
+
     content_panels = Page.content_panels + [
-        FieldPanel('banner_title'),
-        FieldPanel('banner_subtitle'),
-        ImageChooserPanel('banner_image'),
-        PageChooserPanel('banner_cta')
+        MultiFieldPanel(
+            [
+            FieldPanel('banner_title'),
+            FieldPanel('banner_subtitle'),
+            ImageChooserPanel('banner_image'),
+            PageChooserPanel('banner_cta'),
+            ], heading='Banner'
+        ),
+        StreamFieldPanel('content'),
     ]
 
     class Meta:
 
         verbose_name = "Home Page"
         verbose_name_plural = "Home Pages"
-
