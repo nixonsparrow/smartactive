@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-09 21:25+0200\n"
+"POT-Creation-Date: 2022-05-14 22:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,19 +24,19 @@ msgstr ""
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: .\users\models.py:7
+#: .\users\models.py:26
 msgid "First name"
 msgstr "Imię"
 
-#: .\users\models.py:8
+#: .\users\models.py:27
 msgid "Last name"
 msgstr "Nazwisko"
 
-#: .\users\models.py:9
+#: .\users\models.py:28
 msgid "Email address"
 msgstr "Adres e-mail"
 
-#: .\users\models.py:11 .\users\templates\users\user_list.html:18
+#: .\users\models.py:30 .\users\templates\users\user_list.html:18
 msgid "Trainer"
 msgstr "Trener"
 

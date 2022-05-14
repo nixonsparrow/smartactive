@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-09 21:25+0200\n"
+"POT-Creation-Date: 2022-05-14 22:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,54 +28,58 @@ msgstr "Polski"
 msgid "English"
 msgstr "Angielski"
 
-#: .\smartmove\templates\base.html:58
+#: .\smartmove\templates\base.html:59
 msgid "Schedule"
 msgstr "Kalendarz"
 
-#: .\smartmove\templates\base.html:64
-msgid "Users"
-msgstr "Użytkownicy"
+#: .\smartmove\templates\base.html:65
+msgid "Events"
+msgstr "Wydarzenia"
 
-#: .\smartmove\templates\base.html:69
+#: .\smartmove\templates\base.html:70
 msgid "Tickets"
 msgstr "Bilety"
 
-#: .\smartmove\templates\base.html:74
+#: .\smartmove\templates\base.html:75
 msgid "Payments"
 msgstr "Płatności"
 
-#: .\smartmove\templates\base.html:81
+#: .\smartmove\templates\base.html:80
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: .\smartmove\templates\base.html:85
+msgid "Registry"
+msgstr "Rejestr"
+
+#: .\smartmove\templates\base.html:92
 msgid "Profile"
 msgstr "Profil"
 
-#: .\smartmove\templates\base.html:86
+#: .\smartmove\templates\base.html:97
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: .\smartmove\templates\base.html:92
+#: .\smartmove\templates\base.html:103
 msgid "Log in"
 msgstr "Zaloguj"
 
-#~ msgid "created at"
-#~ msgstr "utworzono"
+#: .\smartmove\templates\home\home_page.html:15
+msgid "More"
+msgstr "Więcej"
 
-#~ msgid "updated at"
-#~ msgstr "zmodyfikowano"
+#: .\smartmove\templates\simple_form.html:14
+msgid "Update"
+msgstr "Aktualizuj"
 
-#~ msgid "Ticket"
-#~ msgstr "Bilet"
+#: .\smartmove\templates\simple_form.html:14
+msgid "Add"
+msgstr "Dodaj"
 
-#~ msgid "Active"
-#~ msgstr "Aktywny"
+#: .\smartmove\templates\simple_form.html:19
+msgid "Reset"
+msgstr "Reset"
 
-#~ msgid "Usages left"
-#~ msgstr "Pozostałe wejścia"
-
-#~ msgid "Payment"
-#~ msgstr "Płatność"
-
-#~ msgid "Amount"
-#~ msgstr "Kwota"
-
-#~ msgid "Initial entries"
-#~ msgstr "Wstępna liczba wejść"
+#: .\smartmove\templates\simple_form.html:24
+msgid "Cancel"
+msgstr "Anuluj"

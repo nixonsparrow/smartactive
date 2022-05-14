@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-09 21:25+0200\n"
+"POT-Creation-Date: 2022-05-14 22:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,8 @@ msgid "Events"
 msgstr "Wydarzenia"
 
 #: .\events\models.py:20 .\events\models.py:40 .\events\models.py:81
-#: .\events\templates\events\ticket_list.html:35
+#: .\events\templates\events\event_list.html:28
+#: .\events\templates\events\ticket_list.html:34
 msgid "Type"
 msgstr "Rodzaj"
 
@@ -37,7 +38,8 @@ msgstr "Rodzaje"
 msgid "Name"
 msgstr "Nazwa"
 
-#: .\events\models.py:32 .\events\models.py:167
+#: .\events\models.py:32 .\events\models.py:174
+#: .\events\templates\events\event_registration_list.html:20
 msgid "Ticket"
 msgstr "Bilet"
 
@@ -45,16 +47,17 @@ msgstr "Bilet"
 msgid "Tickets"
 msgstr "Bilety"
 
-#: .\events\models.py:36 .\events\models.py:165
-#: .\events\templates\events\ticket_list.html:29
+#: .\events\models.py:36 .\events\models.py:172
+#: .\events\templates\events\event_registration_list.html:11
+#: .\events\templates\events\ticket_list.html:28
 msgid "User"
 msgstr "Użytkownik"
 
-#: .\events\models.py:38 .\events\templates\events\ticket_list.html:38
+#: .\events\models.py:38 .\events\templates\events\ticket_list.html:37
 msgid "Active"
 msgstr "Aktywny"
 
-#: .\events\models.py:42 .\events\templates\events\ticket_list.html:32
+#: .\events\models.py:42 .\events\templates\events\ticket_list.html:31
 msgid "Usages left"
 msgstr "Pozostałe wejścia"
 
@@ -95,6 +98,7 @@ msgid "Sunday"
 msgstr "Niedziela"
 
 #: .\events\models.py:64 .\events\models.py:80
+#: .\events\templates\events\event_list.html:25
 msgid "Title"
 msgstr "Tytuł"
 
@@ -107,6 +111,7 @@ msgid "Weekday"
 msgstr "Dzień tygodnia"
 
 #: .\events\models.py:68 .\events\models.py:86
+#: .\events\templates\events\event_list.html:31
 msgid "Time"
 msgstr "Godzina"
 
@@ -122,7 +127,8 @@ msgstr "Data do"
 msgid "Limit of participants"
 msgstr "Limit uczestników"
 
-#: .\events\models.py:76 .\events\models.py:169
+#: .\events\models.py:76 .\events\models.py:176
+#: .\events\templates\events\event_registration_list.html:14
 msgid "Event"
 msgstr "Wydarzenie"
 
@@ -134,19 +140,19 @@ msgstr "Krótki opis"
 msgid "Description"
 msgstr "Opis"
 
-#: .\events\models.py:85
+#: .\events\models.py:85 .\events\templates\events\event_list.html:34
 msgid "Date"
 msgstr "Data"
 
-#: .\events\models.py:88
+#: .\events\models.py:88 .\events\templates\events\event_list.html:37
 msgid "Trainer"
 msgstr "Trener"
 
-#: .\events\models.py:89
+#: .\events\models.py:89 .\events\templates\events\event_list.html:40
 msgid "Participants"
 msgstr "Uczestnicy"
 
-#: .\events\models.py:92
+#: .\events\models.py:92 .\events\templates\events\event_list.html:43
 msgid "Schema"
 msgstr "Schemat"
 
@@ -158,70 +164,87 @@ msgstr "Limit rejestracji (minuty)"
 msgid "Unregister time limit (minutes)"
 msgstr "Limit wyrejestrowanie (minuty)"
 
-#: .\events\models.py:161
+#: .\events\models.py:168
 msgid "In"
 msgstr "Zapis"
 
-#: .\events\models.py:162
+#: .\events\models.py:169
 msgid "Out"
 msgstr "Wypis"
 
-#: .\events\models.py:168
+#: .\events\models.py:175
 msgid "Ticket's usages left after registering"
 msgstr "Pozostałe wejścia po rejestracji"
 
-#: .\events\models.py:170
+#: .\events\models.py:177
 msgid "Registering"
 msgstr "Rejestracja"
 
-#: .\events\templates\events\event_segment.html:31
+#: .\events\templates\events\event_detail.html:16
+#: .\events\templates\events\event_segment.html:13
+msgid "General"
+msgstr "Ogólne"
+
+#: .\events\templates\events\event_form.html:5
+#: .\events\templates\events\event_list.html:16
+msgid "Event form"
+msgstr "Formularz wydarzenia"
+
+#: .\events\templates\events\event_list.html:8
+msgid "EVENTS"
+msgstr "WYDARZENIA"
+
+#: .\events\templates\events\event_list.html:11
+#: .\events\templates\events\ticket_list.html:11
+msgid "FORM"
+msgstr "FORMULARZ"
+
+#: .\events\templates\events\event_list.html:80
+#: .\events\templates\events\ticket_list.html:77
+msgid "Edit"
+msgstr "Zmień"
+
+#: .\events\templates\events\event_registration_list.html:17
+msgid "Direction"
+msgstr "Kierunek"
+
+#: .\events\templates\events\event_registration_list.html:23
+msgid "Usages after"
+msgstr "Wejścia po"
+
+#: .\events\templates\events\event_registration_list.html:26
+msgid "Noted"
+msgstr "Zanotowano"
+
+#: .\events\templates\events\event_segment.html:37
+msgid "Past event"
+msgstr "Wydarzenie minione"
+
+#: .\events\templates\events\event_segment.html:42
 msgid "Unregister"
 msgstr "Wypisz"
 
-#: .\events\templates\events\event_segment.html:36
+#: .\events\templates\events\event_segment.html:47
 msgid "Register"
 msgstr "Zapisz"
 
-#: .\events\templates\events\event_segment.html:40
+#: .\events\templates\events\event_segment.html:51
 msgid "Cannot register"
 msgstr "Nie można się zapisać"
 
-#: .\events\templates\events\ticket_form_form.html:7
+#: .\events\templates\events\ticket_form.html:5
+#: .\events\templates\events\ticket_list.html:16
 msgid "Ticket form"
 msgstr "Formularz biletu"
-
-#: .\events\templates\events\ticket_form_form.html:12
-msgid "Update"
-msgstr "Aktualizuj"
-
-#: .\events\templates\events\ticket_form_form.html:12
-msgid "Add"
-msgstr "Dodaj"
-
-#: .\events\templates\events\ticket_form_form.html:17
-msgid "Reset"
-msgstr "Reset"
-
-#: .\events\templates\events\ticket_form_form.html:22
-msgid "Cancel"
-msgstr "Anuluj"
 
 #: .\events\templates\events\ticket_list.html:8
 msgid "TICKETS"
 msgstr "BILETY"
 
-#: .\events\templates\events\ticket_list.html:11
-msgid "FORM"
-msgstr "FORMULARZ"
-
-#: .\events\templates\events\ticket_list.html:41
+#: .\events\templates\events\ticket_list.html:40
 msgid "Payment"
 msgstr "Płatność"
 
-#: .\events\templates\events\ticket_list.html:44
+#: .\events\templates\events\ticket_list.html:43
 msgid "Last updated"
 msgstr "Zmodyfikowano"
-
-#: .\events\templates\events\ticket_list.html:78
-msgid "Edit"
-msgstr "Zmień"
