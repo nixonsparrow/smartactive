@@ -184,7 +184,7 @@ msgstr "Zapisz"
 
 #: .\events\templates\events\event_segment.html:40
 msgid "Cannot register"
-msgstr "Brak możliwości rejestracji"
+msgstr "Nie można się zapisać"
 
 #: .\events\templates\events\ticket_form_form.html:7
 msgid "Ticket form"

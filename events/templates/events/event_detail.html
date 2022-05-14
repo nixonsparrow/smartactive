@@ -9,7 +9,13 @@
             <table width=100%>
                 <tr>
                     <th width=50%>
-                        <small class="text-muted">{{ event.type }}</small>
+                        <small class="text-muted">
+                            {% if event.type %}
+                                {{ event.type }}
+                            {% else %}
+                                {% trans 'General' %}
+                            {% endif %}
+                        </small>
                     </th>
                     <th width=50%>
                         <div align="right">

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+
+
+<div id="EventRegistrations">
+    <div class="content-section">
+        <table width="100%" id="event_registrations_table" class="table-no-border" align="center">
+            <tr align="center">
+                <th id="user_header" width="20%">
+                    {% trans 'User' %}
+                </th>
+                <th id="event_header" width="25%">
+                    {% trans 'Event' %}
+                </th>
+                <th id="direction_header" width="10%">
+                    {% trans 'Direction' %}
+                </th>
+                <th id="ticket_header" class="hidden-mobile" width="15%">
+                    {% trans 'Ticket' %}
+                </th>
+                <th id="ticket_usages_left_after_register_header" class="hidden-mobile" width="10%">
+                    {% trans 'Usages after' %}
+                </th>
+                <th id="created_at_header" class="hidden-mobile" width="20%">
+                    {% trans 'Noted' %}
+                </th>
+            </tr>
+            {% for registration in event_registrations %}
+            {% cycle 'table-row-lightgray' 'table-row-white' as table_row silent %}
+                <tr class="{{ table_row }}" style="overflow-x:auto;"
+                    id="registration_row_{{ registration.id }}">
+                    <td id="user_registration_{{ registration.id }}" align="center">
+                        {{ registration.user }}
+                    </td>
+                    <td id="event_registration_{{ registration.id }}" align="center">
+                        {{ registration.event }}
+                    </td>
+                    <td id="direction_registration_{{ registration.id }}" align="center">
+                        {{ registration.direction_display }}
+                    </td>
+                    <td id="ticket_registration_{{ registration.id }}" class="hidden-mobile" align="center">
+                        {{ registration.ticket }}
+                    </td>
+                    <td id="usages_after_registration_{{ registration.id }}" class="hidden-mobile" align="center">
+                        {{ registration.ticket_usages_left_after_register }}
+                    </td>
+                    <td id="created_registration_{{ ticket.id }}" class="hidden-mobile" align="center">
+                        {{ registration.updated_at }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

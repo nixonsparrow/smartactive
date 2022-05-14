@@ -1,14 +1,13 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
 class UserManager(BaseUserManager):
     def create_user(self, email, username=None, password=None):
 
-        user = self.model(username=username, email=email, is_superuser=False)
+        user = self.model(email=email, username=username, is_superuser=False, is_staff=False)
 
         user.set_password(password)
         user.save()
@@ -16,7 +15,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, username=None, password=None):
 
-        user = self.model(username=username, email=email, is_superuser=True)
+        user = self.model(email=email, username=username, is_superuser=True, is_staff=True)
 
         user.set_password(password)
         user.save()

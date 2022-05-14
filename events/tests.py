@@ -291,6 +291,11 @@ class EventDetailViewTestCase(TestCase):
         response = self.client.get(reverse('calendar:event-detail', kwargs={'pk': self.event.id}))
         self.assertEqual(response.status_code, 200)
 
+    def test_detail_view_logged_user_see_page(self):
+        self.client.login(email=self.user.email, password=PASSWORD)
+        response = self.client.get(reverse('calendar:event-detail', kwargs={'pk': self.event.id}))
+        self.assertEqual(response.status_code, 200)
+
     def test_detail_view_wrong_id_404(self):
         response = self.client.get(reverse('calendar:event-detail', kwargs={'pk': self.event.id + 1}))
         self.assertEqual(response.status_code, 404)

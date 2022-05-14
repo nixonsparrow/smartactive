@@ -175,3 +175,6 @@ class EventRegistration(TimestampedModel):
     ticket_usages_left_after_register = models.SmallIntegerField(_('Ticket\'s usages left after registering'))
     event = models.ForeignKey(Event, verbose_name=_('Event'), on_delete=models.SET_NULL, null=True)
     direction = models.SmallIntegerField(_('Registering'), choices=DIRECTIONS, default=DIRECTIONS[0])
+
+    def direction_display(self):
+        return [way[1] for way in self.DIRECTIONS if way[0] == self.direction][0]

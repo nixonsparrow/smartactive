@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from events.forms import EventForm, TicketForm, TicketUpdateForm
-from events.models import Event, Ticket
+from events.models import Event, EventRegistration, Ticket
 
 
 class Overview(ListView):
@@ -121,3 +121,10 @@ class TicketUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
 
     def get_success_url(self):
         return reverse('calendar:tickets-all')
+
+
+class EventRegistrationListView(PermissionRequiredMixin, ListView):
+    model = EventRegistration
+    permission_required = ('admin',)
+    template_name = 'events/event_registration_list.html'
+    context_object_name = 'event_registrations'
