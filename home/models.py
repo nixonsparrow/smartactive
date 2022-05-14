@@ -46,10 +46,10 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-            FieldPanel('banner_title'),
-            FieldPanel('banner_subtitle'),
-            ImageChooserPanel('banner_image'),
-            PageChooserPanel('banner_cta'),
+                FieldPanel('banner_title'),
+                FieldPanel('banner_subtitle'),
+                ImageChooserPanel('banner_image'),
+                PageChooserPanel('banner_cta'),
             ], heading='Banner'
         ),
         StreamFieldPanel('content'),

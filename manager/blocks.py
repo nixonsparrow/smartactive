@@ -66,7 +66,7 @@ class CTABlock(blocks.StructBlock):
 
     title = blocks.CharBlock(required=True, max_length=40)
     text = blocks.RichTextBlock(required=True, features=['bold', 'italic'])
-    button_page =blocks.PageChooserBlock(required=False)
+    button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(required=False)
     button_text = blocks.CharBlock(required=True, default='Learn More')
 
