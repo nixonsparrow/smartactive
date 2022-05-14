@@ -2,6 +2,12 @@
     color: red;
 }
 
+.banner_top {
+    background-size: cover;
+    color: #fff !important;
+    text-shadow: 0 0 3px darkgreen, 0 0 5px lightgreen;
+}
+
 .content-section {
     background: #ffffff;
     padding: 10px 20px;

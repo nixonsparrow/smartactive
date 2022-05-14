@@ -1,6 +1,7 @@
 import datetime
 
 from dateutil.utils import today
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.timezone import now
@@ -9,9 +10,7 @@ from events.exceptions import (NoValidTicketFound, ParticipantsFull,
                                RegisterTimePassed, UnregisterTimePassed,
                                UserInParticipants, UserNotInParticipants)
 from events.models import Event, EventRegistration, Ticket, Type
-from django.contrib.auth import get_user_model
 from users.tests import PASSWORD, TEST_SUPERUSER, TEST_USER
-
 
 User = get_user_model()
 
